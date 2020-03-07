@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+             
+    <!-- Configuracoes para UM determinado DB -->
+    <persistence-unit name="Ecommerce-PU">
+        <properties>
+        
+        <!-- STREAM de conexao -->
+        <!-- 'createDatabaseIfNotExist=true' >>>  se nao existir cria o DB -->
+        <!-- '&amp;useTimezone=true&amp;serverTimezone=UTC' >>> apenas para o WINDOWS -->
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost/algaworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
+         
+         <!-- USUARIO + PASSWORD + DRIVER para conectar o DB --> 
+            <property name="javax.persistence.jdbc.user" value="root" />            
+            <property name="javax.persistence.jdbc.password" value="1234" />            
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+
+          <!-- PROPRIEDADES DO JPA -->
+          <!-- Usada para fase de DESENVOLVIIMENTO e TESTES -->
+          
+		          <!-- DELETE e RECRiA o DB toda vez que o JPA REINICIAR/INICIAR --> 
+		            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+		          <!-- DADOS iniciais quando recriada o DB -->  
+		            <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
+				  		  
+				  <!-- Mostra o SQL construido no CONSOLE -->
+		            <property name="hibernate.show_sql" value="true" />
+		          <!-- Formato o SQL construido para melhor Leitura -->  
+		            <property name="hibernate.format_sql" value="true" />
+        
+        <!-- SEMPRE USADA (Desenvolvimento e PRODUCAO -->
+			      <!-- Fala pro JPA o dialeto (DB) que sera usado -->
+			         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+        
+        </properties>
+    </persistence-unit>
+</persistence>
