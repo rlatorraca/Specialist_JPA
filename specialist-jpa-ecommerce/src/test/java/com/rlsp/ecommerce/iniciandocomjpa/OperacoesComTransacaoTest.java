@@ -11,6 +11,146 @@ import org.junit.Assert;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 	
+	/**
+	 * PERSIST vs MERGE
+	 * a) PERSIST
+	 * 	- So serve para PERSISTIR, e NAO serve para atualizar
+	 *  - Deve ser usado sempre com OBJETO NOVO (Garante a INSERCAO)
+	 *  - Coloca na MEMORIA do EntityManager (Objeto Gerenciavel) a instancia criada para manipular os dados(ex: 'Produto produtoPersist;')
+	 * 
+	 * b) MERGE
+	 *  - ATUALIZA e PERSISTIR
+	 *  - Faz um COPIA da instancia criada e passa para o EntityManager gerenciar (e ALTERAR), qualqer alteracao posterior nao sera refletida pois,
+	 *  	NAO E UM OBJETO GERENCIAVEL	  
+	 *  - Deve-se fazer algo assim 'produtoMerge = entityManager.merge(produtoMerge);' para entao poder ser gerenciado o "produtoMerge" (OBJETO GERENCIAVEL)
+	 */
+	
+	@Test
+	public void mostrarDiferencaEntrePersistAndMerge() {
+		
+		Produto produtoPersist = new Produto();
+		
+		produtoPersist.setId(6);
+		produtoPersist.setNome("Adega UltraClean");
+		produtoPersist.setDescricao("Adega italiana de alto nivel de qualidade");
+		produtoPersist.setPreco(new BigDecimal(445.29));
+		
+		entityManager.getTransaction().begin();
+		
+		entityManager.persist(produtoPersist); // Coloca na MEMORIA do entityManager 
+		produtoPersist.setNome("Adega UltraClean - 2"); // Possivel ALTERAR por se um OBJETO GERENCIAVEL (na memoria do EntityManager)
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear(); // Limpa a Memoria de dados do EntityManager. Para que o proxima linha possa pegar informacoes do DB e nao da memoria do EntityManager
+		
+
+		Produto produtoVerificacao = entityManager.find(Produto.class, produtoPersist.getId());
+		Assert.assertNotNull(produtoVerificacao);
+				
+		System.out.println("------------------------------------------------");
+		
+		Produto produtoMerge = new Produto();
+		
+		produtoMerge.setId(7);
+		produtoMerge.setNome("Refrigedaro UtlraSom");
+		produtoMerge.setDescricao("Melhor Produto Chines da decada");
+		produtoMerge.setPreco(new BigDecimal(4245.29));
+		
+		entityManager.getTransaction().begin();
+		
+		produtoMerge = entityManager.merge(produtoMerge); // Alem de ALTERAR o 'merge' faz um INSERCAO no DB
+		produtoMerge.setNome("Refrigedar UtlraSom - 2"); // 
+		
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear(); // Limpa a Memoria de dados do EntityManager. Para que o proxima linha possa pegar informacoes do DB e nao da memoria do EntityManager
+		
+
+		Produto produtoVerificacao2 = entityManager.find(Produto.class, produtoMerge.getId());
+		Assert.assertNotNull(produtoVerificacao2);
+	}
+	
+	
+	@Test
+	public void inserirOPrimeiroObjetoComMerge() {
+		
+		Produto produto = new Produto();
+		
+		produto.setId(5);
+		produto.setNome("Camera LiveTech");
+		produto.setDescricao("ULTRA HIPER HD IMAGES");
+		produto.setPreco(new BigDecimal(1245.21));
+		
+		entityManager.getTransaction().begin();
+		
+		entityManager.merge(produto); // Alem de ALTERAR o 'merge' faz um INSERCAO no DB
+		
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear(); // Limpa a Memoria de dados do EntityManager. Para que o proxima linha possa pegar informacoes do DB e nao da memoria do EntityManager
+		
+		/**
+		 * OU
+		 * entityManager.close();
+		 * entityManager = entityManagerFactory.createEntityManager();
+		 */
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+		Assert.assertNotNull(produtoVerificacao);
+				
+				
+	}
+
+	@Test
+	public void atualizarObjetoGerenciado() {
+		
+		Produto produto = entityManager.find(Produto.class, 4);
+				
+		
+		
+		
+		entityManager.getTransaction().begin();
+		
+		//Nao precisa de 'entityManager.merge(produto);'
+		//Percebe que existe um ALTERACAO no atributo ja que pega-se 'produto = entityManager.find(Produto.class, 4);'
+		produto.setNome("IBM-Compaq New Generation");
+		
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+
+		Assert.assertEquals("IBM-Compaq New Generation", produtoVerificacao.getNome());
+		
+		
+	}
+	
+	@Test
+	public void atualizarObjeto() {
+		
+		Produto produto = new Produto();
+		
+		produto.setId(4);
+		produto.setNome("IBM-Compaq");
+		produto.setDescricao("Novo IBM server junto com a Compaq");
+		produto.setPreco(new BigDecimal(10500));
+		
+		entityManager.getTransaction().begin();
+		
+		entityManager.merge(produto);
+		
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+				
+		Assert.assertNotNull(produtoVerificacao);
+		Assert.assertEquals("IBM-Compaq", produtoVerificacao.getNome());
+		
+		
+	}
+	
 	@Test
 	public void abrirEFecharATransacao() {
 		
@@ -22,12 +162,13 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		/**
 		 * Local de execucao das transacoes (mudancas) no DB
 		 */
-		//entityManager.persist(produto); // Salva objeto do DB
-		//entityManager.merge(produto); //Muda / Salva objeto do DB
+		//entityManager.persist(produto); // Salva um NOVO objeto do DB
+		//entityManager.merge(produto); // Atualiza objeto do DB
 		//entityManager.remove(produto); // Removendo objeto do DB
 		
 		//Fechando / Finaizando a transacao
 		entityManager.getTransaction().commit(); // ==> sera AUTOMATIZADO (na vida real)
+		
 		
 	}
 	
