@@ -60,7 +60,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		
 		Produto produtoPersist = new Produto();
 		
-		produtoPersist.setId(6);
+		//produtoPersist.setId(6);
 		produtoPersist.setNome("Adega UltraClean");
 		produtoPersist.setDescricao("Adega italiana de alto nivel de qualidade");
 		produtoPersist.setPreco(new BigDecimal(445.29));
@@ -81,8 +81,8 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		
 		Produto produtoMerge = new Produto();
 		
-		produtoMerge.setId(7);
-		produtoMerge.setNome("Refrigedaro UtlraSom");
+		//produtoMerge.setId(7); 
+		produtoMerge.setNome("Refrigerador UtlraSom");
 		produtoMerge.setDescricao("Melhor Produto Chines da decada");
 		produtoMerge.setPreco(new BigDecimal(4245.29));
 		
@@ -106,7 +106,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		
 		Produto produto = new Produto();
 		
-		produto.setId(5);
+		//produto.setId(5);
 		produto.setNome("Camera LiveTech");
 		produto.setDescricao("ULTRA HIPER HD IMAGES");
 		produto.setPreco(new BigDecimal(1245.21));
@@ -226,7 +226,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	public void inserirOPrimeiroObjeto() {
 		
 		Produto produto = new Produto();
-		produto.setId(2);
+		//produto.setId(2); usando @GeneratedValue(strategy = GenerationType.IDENTITY)
 		produto.setNome("Laptop MAC-X");
 		produto.setDescricao("Ultimo MAC-OS de 2020");
 		produto.setPreco(new BigDecimal(6755.09));
@@ -255,5 +255,40 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 				
 				
 	}
+	/**
+	 * RELACIONAMENTOS (tipos)
+	 * 
+	 * 1) Muitos para UM (* -- 1) - @MantyToOne - Mapeamento Bidirecional (Ida e volta)
+	 * 		@ManyToOne
+	 * 		@joinColumn(name="client_id")
+	 * 		privaet Cliente cliente
+	 *  
+	 * 2) Um para muitos (1 -- *) - @OneToMany - - Mapeamento Bidirecional (Ida e volta)
+	 * 		@OneToMany(mappedBy="cliente")
+	 * 		private List<Pedido> pedidos
+	 * 
+	 * 3) Um para Um (1 -- 1) @OneToOne - Mapeamento Bidirecional (Ida e volta)
+	 *      @OneToOne
+	 *      @JoinColumn(name="nota_fiscal_id"
+	 *      privatge NotaFiscal notaFiscal
+	 *      
+	 *      @OneToOne(mappedBY="notaFiscal")
+	 *      private Pedido pedido;
+	 * 
+	 * 4) Muitos para Muitos (* -- *) @ManyToMany - Mapeamento Bidirecional
+	 * 
+	 * 		@ManyToMany(name="produto_cateogoria, joinColumns = @JoinColumn(name="produto_id"), inverseJoinColumns = @JoinClumn(name="categoria_id"))
+	 * 		private List<Categoria> categorias;
+	 * 
+	 * 		@ManyToMany(mappedBy="categorias")
+	 * 		private List<Produto> produtos;
+	 * 
+	 *  Owner e Non-Owning
+	 *  	- mappedBy = é o Non-Owning (nao dono da relacao)
+	 *  	- @JoinTable / @joinColumn = e o Owner (dono da relacao)
+	 *  
+	 *  	- Quem fazer o JPA persistir a relacao é o OWNER (deve estar preenchido para ser persistido)
+	 *  
+	 */
 
 }

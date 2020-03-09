@@ -15,7 +15,7 @@ public class MapeamentoEnumeracoesTest extends EntityManagerTest{
 		
 		Cliente cliente = new Cliente();
 		
-		cliente.setId(5);
+		//cliente.setId(5); usando @GeneratedValue(strategy = GenerationType.IDENTITY)
 		cliente.setNome("Gabriel da Silva");
 		cliente.setSexo(SexoCliente.MASCULINO);
 		
