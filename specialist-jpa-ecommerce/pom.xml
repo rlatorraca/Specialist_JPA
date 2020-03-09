@@ -29,6 +29,14 @@
 	    <version>4.13</version>
 	    <scope>test</scope>
 	</dependency>	
+	
+	<!-- LOMBOK = esconde (nao deixa explicito) os codigos de GETTERS, SETTERS, EQUALS e HASCODE do codigo -->
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.12</version>
+		<scope>provided</scope>
+	</dependency>
 
   </dependencies>
   

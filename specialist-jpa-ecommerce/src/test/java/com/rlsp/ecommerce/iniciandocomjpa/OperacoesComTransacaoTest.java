@@ -12,6 +12,36 @@ import org.junit.Assert;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 	
 	/**
+	 * DETACH
+	 * 	- Esse metodo faz a DESANEXACAO do "EntityManager" nao permitindo que este faca a INSERCAO, DELECAO ou ATUALIZACAO dos dados no DB
+	 *  - Deixa de gerenciar a ENTITY (Entidade)
+	 */
+	@Test
+	public void impedirOperacaoComBancoDeDados() {
+		
+		Produto produto = entityManager.find(Produto.class, 1);
+				
+		entityManager.detach(produto); // DESANEXA o OBJETO Gerenciavel do 'EntityManager' 
+		
+		
+		entityManager.getTransaction().begin();
+		
+		//Nao precisa de 'entityManager.merge(produto);'
+		//Percebe que existe um ALTERACAO no atributo ja que pega-se 'produto = entityManager.find(Produto.class, 4);'
+		produto.setNome("IBM-Compaq New Generation");
+		
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+
+		Assert.assertEquals("Kindle", produtoVerificacao.getNome());
+		
+		
+	}
+	
+	/**
 	 * PERSIST vs MERGE
 	 * a) PERSIST
 	 * 	- So serve para PERSISTIR, e NAO serve para atualizar
