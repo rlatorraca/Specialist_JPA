@@ -1,14 +1,16 @@
 
 package com.rlsp.ecommerce.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
+
+import org.hibernate.mapping.List;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +20,6 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-
 @Table(name= "categoria")
 public class Categoria {
 
@@ -74,9 +75,13 @@ public class Categoria {
     private String nome;
 
     /**
-     * Serve para renomer a coluna no DB
+     * AUTORELACIONAMENTO
+     *  - categoriaPai <--> categoriaFilha
      */
-    @Column(name="categoria_pai_id")
-    private Integer categoriaPaiId;
+    @ManyToOne
+    @JoinColumn(name="categoria_pai_id")
+    private Integer categoriaPai;
 
+    @OneToMany(mappedBy = "categoriaPai")
+    private List<Categoria> categorias;
 }
