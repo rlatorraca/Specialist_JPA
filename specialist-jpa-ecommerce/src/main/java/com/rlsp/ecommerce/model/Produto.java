@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -38,6 +40,13 @@ public class Produto {
     private String descricao;
 
     private BigDecimal preco;
+    
+    
+    @ManyToMany
+    @JoinTable(name="produtos_categorias", 
+    			joinColumns = @JoinColumn(name="produto_id"), //Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Produto
+    			inverseJoinColumns = @JoinColumn (name ="categoria_id")) //Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Categoria    			
+    private List<Categoria> categorias;
     
 
 	

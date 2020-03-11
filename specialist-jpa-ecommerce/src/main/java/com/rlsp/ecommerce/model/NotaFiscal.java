@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name= "nota_fiscal")
-public class NotaFIscal {
+public class NotaFiscal {
 
     @EqualsAndHashCode.Include
     @Id
@@ -33,5 +35,12 @@ public class NotaFIscal {
 
     @Column(name="data_emissao")
     private Date dataEmissao;
+    
+    @OneToOne
+	@JoinColumn(name="pedido")
+//  @JoinTable(name = "pedido_nota_fiscal",
+    //  joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
+    //  inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true))
+    private Pedido pedido;
 
 }

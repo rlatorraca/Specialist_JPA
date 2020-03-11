@@ -1,16 +1,10 @@
 package com.rlsp.ecommerce.relacionamentos;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.rlsp.ecommerce.EntityManagerTest;
 import com.rlsp.ecommerce.model.Categoria;
-import com.rlsp.ecommerce.model.Cliente;
-import com.rlsp.ecommerce.model.Pedido;
-import com.rlsp.ecommerce.model.StatusPedido;
 
 public class AutoRelacionamentoTest extends EntityManagerTest{
 	
@@ -31,10 +25,10 @@ public class AutoRelacionamentoTest extends EntityManagerTest{
 
         entityManager.clear();
 
-        Categoria categoriaTest = entityManager.find(Categoria.class, categoria.getId());
+        Categoria categoriaTest = entityManager.find(Categoria.class, categoriaFilha.getId());
         Assert.assertNotNull(categoriaTest.getCategoriaPai());
 
-        Categoria categoriaPaiTest = entityManager.find(Categoria.class, categoriapai.getId());
+        Categoria categoriaPaiTest = entityManager.find(Categoria.class, categoriaPai.getId());
         Assert.assertFalse(categoriaPaiTest.getCategorias().isEmpty());
     }
 

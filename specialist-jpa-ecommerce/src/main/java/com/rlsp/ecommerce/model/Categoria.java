@@ -6,11 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.mapping.List;
+import java.util.List;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -79,9 +80,13 @@ public class Categoria {
      *  - categoriaPai <--> categoriaFilha
      */
     @ManyToOne
-    @JoinColumn(name="categoria_pai_id")
-    private Integer categoriaPai;
+    @JoinColumn(name = "categoria_pai_id")
+    private Categoria categoriaPai;
 
     @OneToMany(mappedBy = "categoriaPai")
     private List<Categoria> categorias;
+
+    @ManyToMany(mappedBy="categorias")
+    private List<Produto> produtos;  //Busca na Entidade PRODUTO no atributo categorias(List<Categoria>)
+    
 }
