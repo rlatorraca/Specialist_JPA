@@ -48,5 +48,6 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest{
 		Assert.assertNotNull(pedidotest);
 		
 	}
+
 	
 }

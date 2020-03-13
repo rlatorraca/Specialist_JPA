@@ -28,19 +28,23 @@ public class NotaFiscal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="pedido_id")
-    private Integer pedidoId;
-
     private String xml;
 
     @Column(name="data_emissao")
     private Date dataEmissao;
     
-    @OneToOne
-	@JoinColumn(name="pedido")
-//  @JoinTable(name = "pedido_nota_fiscal",
+    
+    /**
+     * @JoinTable funciona tanto para @ManyToMany, quanto @OneToOne
+     *  -unique = true ==> serve para garantir 1(um) valor UNICO em cada tabela Pedip vs Nota Fiscal(Sem repeticao nas tabelas)
+     */
+    //@JoinTable(name = "pedido_nota_fiscal",
     //  joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
     //  inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true))
+    @OneToOne (optional=false)
+	@JoinColumn(name="pedido")
     private Pedido pedido;
+    
+    
 
 }
