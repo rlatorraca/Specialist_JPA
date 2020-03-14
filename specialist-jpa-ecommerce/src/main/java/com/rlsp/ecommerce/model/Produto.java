@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -69,7 +71,19 @@ public class Produto {
     @OneToOne(mappedBy = "produto")
     private Estoque estoque;
     
-
+    /**
+     *  @ElementCollection
+     *  	- serve para gerenciar a COLLECTION (de tipo basico abaixo) como se fosse um Entidade (Ex: List<Categoria> cateogoria)
+     *      - Cria uma OUTRA/NOVA TABELA para guardar a Collection de tags
+     *      @CollectionTable ==> serve para customizar a tabela que sera criada
+     *      	joinColumns = @JoinColumn(name="produto_id") ==> sera um coluna da tabela criada [ Conectara com a tabela PRODUTO no caso em tela]
+     *      @Column(name = "tag_name") ==> serve para customizar a Coluna com as TAGs
+     */
+    @ElementCollection    
+    @CollectionTable(name="produto_tag"
+    				, joinColumns = @JoinColumn(name="produto_id"))
+    @Column(name = "tag_name")
+    private List<String> tags;
 	
 	
 }

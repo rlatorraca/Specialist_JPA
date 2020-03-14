@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,6 +30,15 @@ public class Cliente {
     private Integer id;
 
     private String nome;
+    
+    
+    /**
+     * TRANSIENT
+     * 	- é um propriedade do JPA que serve para ele IGNORAR o atributo e nao levar este para dentro do DB (CRIAR, SALVAR, BUSCAR, etc)
+     */
+    @Transient
+    private String primeiroNome;
+    
     /**
      * EnumType.STRING = guarda o NOME e nao valor numeral/ordinal
      */
@@ -38,6 +48,13 @@ public class Cliente {
     @OneToMany(mappedBy="cliente")
     private List<Pedido> pedidos;
     
-    
+    public void configuraPrimeiroNome() {
+    	if(nome != null && !nome.isBlank()) {
+    		int index = nome.indexOf(" ");
+    		if (index > -1) {
+    			primeiroNome = nome.substring(0, index);
+    		}
+    	}
+    }
 
 }
