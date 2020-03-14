@@ -32,7 +32,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest{
 		Pedido pedido = new Pedido();
 		
 		//pedido.setId(1); usando @GeneratedValue(strategy = GenerationType.IDENTITY)
-		pedido.setDataPedido(LocalDateTime.now());
+		pedido.setDataCriacao(LocalDateTime.now());
 		pedido.setStatus(StatusPedido.AGUARDANDO);
 		pedido.setTotal(new BigDecimal(1230.22));
 		pedido.setEnderecoEntrega(endereco);

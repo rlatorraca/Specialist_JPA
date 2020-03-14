@@ -2,13 +2,13 @@
 package com.rlsp.ecommerce.model;
 
 import java.math.BigDecimal;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -19,7 +19,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
+import javax.persistence.PostRemove;
+import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import com.rlsp.ecommerce.listener.GenericoListener;
+import com.rlsp.ecommerce.listener.GerarNotaFiscalListener;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -46,6 +56,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+/**
+ * @EntityListeners ==>  inclui um ARRAY de listeners
+ *
+ */
+@EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 @Entity
 @Table(name= "pedido")
 public class Pedido {
@@ -68,9 +83,12 @@ public class Pedido {
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
-    @Column(name="data_pedido")
-    private LocalDateTime dataPedido;
+    @Column(name="data_criacao")
+    private LocalDateTime dataCriacao;
 
+    @Column(name="data_ultima_atualizacao")
+    private LocalDateTime dataUltimaAtualizacao;
+    
     @Column(name="data_conclusao")
     private LocalDateTime dataConclusao;
 
@@ -82,7 +100,7 @@ public class Pedido {
      * fetch = FetchType.EAGER , busca ao carregar o atributo (Antes de ser usado)
      */
     @OneToMany(mappedBy="pedido", fetch = FetchType.LAZY)
-    private List<ItemPedido> itensPedido;
+    private List<ItemPedido> itens;
     
     @OneToOne(mappedBy = "pedido")	
     private PagamentoCartao pagamento;
@@ -92,7 +110,7 @@ public class Pedido {
     
 
     /**
-     * EnumType.STRING = guarda o NOME e nao valor numeral/ordinal
+     * EnumType.STRING = guarda o NOME e nao valor numeral/ordinals
      */
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
@@ -102,5 +120,75 @@ public class Pedido {
      */
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
+    
+    public boolean isPago() {
+    	return StatusPedido.PAGO.equals(status);
+    }
 
+    /**
+     * METODOS DE CALLBACK 
+     *  
+     *   OBS: Possivel APENAS 1 Anotacao por classe de cada item abaixo
+     *  
+     *  - precisa da anotacao @PrePersist, para ser executado como Callback, ANTES do PERSIST
+     *  - precisa da anotacao @PreUpdate, para ser executado como Callback, ANTES do UPDATE
+     *  - precisa da anotacao @PreRemove, para ser executado como Callback, ANTES de REMOVER
+     *       *  
+     *  - precisa da anotacao @PosPersist, para ser executado como Callback, APOS do PERSIST
+     *  - precisa da anotacao @PosUpdate, para ser executado como Callback, APOS do UPDATE  
+     *  - precisa da anotacao @PosRemove, para ser executado como Callback, antes do REMOVE
+     *  - precisa da anotacao @PosLoad para ser executado como Callback, APOS do CARREGAR
+     *  
+     */
+    
+    @PrePersist // Acionado APENAS na criacao do objeto
+    public void aoPersistir() {
+    	dataCriacao = LocalDateTime.now();
+    	calcularTotal();
+    }
+    
+    
+//  @PrePersist
+//  @PreUpdate
+	 public void calcularTotal() {
+	      if (itens != null) {
+	          total = itens.stream()
+	        		  	.map(ItemPedido::getPrecoProduto)
+	        		  	.reduce(BigDecimal.ZERO, BigDecimal::add);
+	      }
+	 }
+    
+    
+    @PreUpdate // Acionado em TODOS Updates
+    public void aoAtualizar() {
+    	dataUltimaAtualizacao = LocalDateTime.now();
+    	calcularTotal();
+    }
+    
+
+    @PostPersist
+    public void aposPersistir() {
+        System.out.println("Após persistir Pedido.");
+    }
+
+    @PostUpdate
+    public void aposAtualizar() {
+        System.out.println("Após atualizar Pedido.");
+    }
+
+    @PreRemove
+    public void aoRemover() {
+        System.out.println("Antes de remover Pedido.");
+    }
+
+    @PostRemove
+    public void aposRemover() {
+        System.out.println("Após remover Pedido.");
+    }
+
+    @PostLoad
+    public void aoCarregar() {
+        System.out.println("Após carregar o Pedido.");
+    }
+    
 }

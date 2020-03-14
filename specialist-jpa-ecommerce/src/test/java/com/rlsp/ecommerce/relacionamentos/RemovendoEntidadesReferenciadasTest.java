@@ -12,10 +12,10 @@ public class RemovendoEntidadesReferenciadasTest extends EntityManagerTest {
     public void removerEntidadeRelacionada() {
         Pedido pedido = entityManager.find(Pedido.class, 1);
 
-        Assert.assertFalse(pedido.getItensPedido().isEmpty());
+        Assert.assertFalse(pedido.getItens().isEmpty());
 
         entityManager.getTransaction().begin();
-        pedido.getItensPedido().forEach(i -> entityManager.remove(i)); // Apaga os itens PRIMEIRO, para entao poder APAGAR o pedido
+        pedido.getItens().forEach(i -> entityManager.remove(i)); // Apaga os itens PRIMEIRO, para entao poder APAGAR o pedido
         entityManager.remove(pedido);
         entityManager.getTransaction().commit();
 
