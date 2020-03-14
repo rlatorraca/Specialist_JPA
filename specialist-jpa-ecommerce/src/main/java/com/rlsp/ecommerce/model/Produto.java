@@ -1,8 +1,10 @@
 package com.rlsp.ecommerce.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -46,6 +48,16 @@ public class Produto {
     private String descricao;
 
     private BigDecimal preco;
+    /**
+     * @Column (Detalhes)      
+     *  - "updatable = false" : para NAO ser MODIFICADO
+     *  - "insertable = false" : NAO SERA valorado na criacao do objeto
+     */
+    @Column(name="data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @Column(name="data_ultima_atualizacao", insertable = false)
+    private LocalDateTime dataUltimaAtualizacao;
     
     
     @ManyToMany
