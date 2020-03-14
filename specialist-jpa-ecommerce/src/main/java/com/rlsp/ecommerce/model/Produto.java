@@ -19,7 +19,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.rlsp.ecommerce.listener.GenericoListener;
-import com.rlsp.ecommerce.listener.GerarNotaFiscalListener;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -77,13 +76,20 @@ public class Produto {
      *      - Cria uma OUTRA/NOVA TABELA para guardar a Collection de tags
      *      @CollectionTable ==> serve para customizar a tabela que sera criada
      *      	joinColumns = @JoinColumn(name="produto_id") ==> sera um coluna da tabela criada [ Conectara com a tabela PRODUTO no caso em tela]
+     *      		@JoinColumn(name="produto_id") ==> faz referencia para tabela PRODUTO
      *      @Column(name = "tag_name") ==> serve para customizar a Coluna com as TAGs
      */
     @ElementCollection    
     @CollectionTable(name="produto_tag"
     				, joinColumns = @JoinColumn(name="produto_id"))
     @Column(name = "tag_name")
-    private List<String> tags;
+    private List<String> tags; //==> Lista de ELEMENTOS BÁSICOS
+    
+    
+    @ElementCollection    
+    @CollectionTable(name="produto_espeficacao"
+    		, joinColumns = @JoinColumn(name="produto_id"))
+    private List<Especificacao> especificacao; //==> Lista de OBJETOS EMBUTIDOS
 	
 	
 }

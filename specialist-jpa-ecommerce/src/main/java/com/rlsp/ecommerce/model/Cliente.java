@@ -2,13 +2,20 @@
 package com.rlsp.ecommerce.model;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -48,6 +55,13 @@ public class Cliente {
     @OneToMany(mappedBy="cliente")
     private List<Pedido> pedidos;
     
+    @ElementCollection // Cria outra TABELA pelo JPA
+    @CollectionTable(name = "cliente_contato",
+    				joinColumns = @JoinColumn(name = "cliente_id"))
+    @MapKeyColumn(name = "tipo_do_contato") //O Nome da KEY (do Map<Key,value>) dento do da tabela
+    @Column (name = "valor_do_contato") // //O Nome da VALUE (do Map<Key,value>) dento do da tabela
+    private Map<String, String> contatos;
+    
     public void configuraPrimeiroNome() {
     	if(nome != null && !nome.isBlank()) {
     		int index = nome.indexOf(" ");
@@ -56,5 +70,6 @@ public class Cliente {
     		}
     	}
     }
+    
 
 }
