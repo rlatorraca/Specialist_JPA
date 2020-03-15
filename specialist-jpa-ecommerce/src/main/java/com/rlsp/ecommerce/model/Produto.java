@@ -9,18 +9,17 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.rlsp.ecommerce.listener.GenericoListener;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,17 +32,27 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners({ GenericoListener.class })
 @Entity
-@Table(name= "produto")
-public class Produto {
+@Table(name= "produto", 
+       uniqueConstraints = { 
+    		         @UniqueConstraint(name = "unq_nome", columnNames = { "nome_produto" }) 
+    		      },
+        indexes = { 
+        		     @Index(name = "idx_nome", columnList = "nome_produto") }
+   )
+public class Produto extends EntidadeBaseInteger{
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	/**
+	 * Pega a chave PRIMARIA (id) ao estender "EntidadeBaseInteger.class"
+	 */
+//    @EqualsAndHashCode.Include
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
 
+	@Column(name = "nome_produto")
     private String nome;
 
     private String descricao;
@@ -90,6 +99,13 @@ public class Produto {
     @CollectionTable(name="produto_espeficacao"
     		, joinColumns = @JoinColumn(name="produto_id"))
     private List<Especificacao> especificacao; //==> Lista de OBJETOS EMBUTIDOS
+    
+    /**
+     * @Lob ==> mostra ao JPA que este atributo pode ser persistido com o ARQUIVO (FILE) de tamanho grande (qualquer coisa que se possa transformar em bytes)
+     * 	Lob (Large Object)
+     */
+    @Lob
+    private byte[] fotoProduto;
 	
 	
 }

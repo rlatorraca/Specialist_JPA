@@ -1,28 +1,30 @@
 
 package com.rlsp.ecommerce.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import java.util.List;
-
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name= "categoria")
-public class Categoria {
+@Table(name= "categoria",  
+       uniqueConstraints = { 
+    		   		@UniqueConstraint(name = "unq_nome_categoria", columnNames = { "nome_categoria" }) 
+    		   		}
+      )
+public class Categoria extends EntidadeBaseInteger{
 
 
     
@@ -68,11 +70,15 @@ public class Categoria {
     //@GeneratedValue(strategy = GenerationType.TABLE, generator= "tabela")
     //@TableGenerator(name = "tabela", table = "novo_hibernate_sequences", pkColumnName = "categoria_seq_name", pkColumnValue = "categoria", initialValue = 5, allocationSize = 30)
     
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	/**
+	 * Pega a chave PRIMARIA (id) ao estender "EntidadeBaseInteger.class"
+	 */
+//    @EqualsAndHashCode.Include
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
 
+	@Column(name = "nome_categoria")
     private String nome;
 
     /**

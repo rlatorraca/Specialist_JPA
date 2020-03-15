@@ -12,9 +12,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -31,7 +28,6 @@ import javax.persistence.Table;
 import com.rlsp.ecommerce.listener.GenericoListener;
 import com.rlsp.ecommerce.listener.GerarNotaFiscalListener;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -55,7 +51,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 /**
  * @EntityListeners ==>  inclui um ARRAY de listeners
  *
@@ -63,12 +59,15 @@ import lombok.Setter;
 @EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 @Entity
 @Table(name= "pedido")
-public class Pedido {
+public class Pedido extends EntidadeBaseInteger{
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	/**
+	 * Pega a chave PRIMARIA (id) ao estender "EntidadeBaseInteger
+	 */
+//    @EqualsAndHashCode.Include
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
     
     
     /**
@@ -102,8 +101,12 @@ public class Pedido {
     @OneToMany(mappedBy="pedido", fetch = FetchType.LAZY)
     private List<ItemPedido> itens;
     
-    @OneToOne(mappedBy = "pedido")	
-    private PagamentoCartao pagamento;
+    /**
+     * Como a classe Pagamento e uma Entidade Abstrata pode-se fazer referencia
+     */
+    
+    @OneToOne(mappedBy = "pedido")
+    private Pagamento pagamento;
     
     @OneToOne(mappedBy = "pedido")	
     private NotaFiscal notaFiscal;

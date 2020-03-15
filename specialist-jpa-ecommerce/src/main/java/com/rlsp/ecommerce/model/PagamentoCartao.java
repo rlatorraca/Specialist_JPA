@@ -1,43 +1,23 @@
 
 package com.rlsp.ecommerce.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name= "pagamento_cartao")
-public class PagamentoCartao {
+@DiscriminatorValue("cartao") // Para ser usado pela tabela PAI (PAGAMENTO) no campo @DiscriminationColumn (dtype) , quando usa SINGLE_TABLE
+@Table(name= "pagamento_cartao") //Esta notacao sera ignorada quando usada a estrategia SINGLE_TABLE
+public class PagamentoCartao extends Pagamento{
 
-	@EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-	@OneToOne (optional=false)
-	@JoinColumn(name="pedido_id")
-    private Pedido pedido;
-    
-	/**
-     * EnumType.STRING = guarda o NOME e nao valor numeral/ordinal
-     */
-    @Enumerated(EnumType.STRING)
-    private StatusPagamento status;
-    
-    private String numero;
+	@Column(name = "numero_cartao")
+    private String numeroCartao;
     
     
 

@@ -37,13 +37,13 @@ public class ItemPedido {
     @Column(name = "produto_id") // pega/usa o mesmo valor do atributo produto_id ABAIXO
     private Integer produtoId;
 */
-	@MapsId("pedidoId") //temms que pegar o atributo na Entidade "ItemPedidoId"
+	@MapsId("pedidoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "pedido_id", insertable = false, updatable = false)
 	@JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @MapsId("produtoId") //temms que pegar o atributo na Entidade "ItemPedidoId"
+    @MapsId("produtoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "produto_id" , insertable = false, updatable = false)
     @JoinColumn(name = "produto_id")

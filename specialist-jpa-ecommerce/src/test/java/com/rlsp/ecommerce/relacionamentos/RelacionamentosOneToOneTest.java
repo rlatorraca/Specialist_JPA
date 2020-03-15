@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.rlsp.ecommerce.EntityManagerTest;
+import com.rlsp.ecommerce.mapeamentoavancado.SalvandoArquivosTest;
 import com.rlsp.ecommerce.model.NotaFiscal;
 import com.rlsp.ecommerce.model.PagamentoCartao;
 import com.rlsp.ecommerce.model.Pedido;
@@ -20,7 +21,7 @@ public class RelacionamentosOneToOneTest extends EntityManagerTest{
     	Pedido pedido = entityManager.find(Pedido.class,1);
     	
     	PagamentoCartao pagamentoCartao = new PagamentoCartao();
-    	pagamentoCartao.setNumero("1234-5678-8965-7845");
+    	pagamentoCartao.setNumeroCartao("1234-5678-8965-7845");
     	pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
     	pagamentoCartao.setPedido(pedido);
     	
@@ -43,7 +44,8 @@ public class RelacionamentosOneToOneTest extends EntityManagerTest{
     	NotaFiscal nf = new NotaFiscal();
     	nf.setDataEmissao(new Date());
     	nf.setPedido(pedido);
-    	nf.setXml("Xml-embedded");
+    	nf.setXml(SalvandoArquivosTest.carregarNotaFiscal());
+    	//nf.setXml("Xml-embedded");
     	
     	entityManager.getTransaction().begin();
     	entityManager.persist(nf);
