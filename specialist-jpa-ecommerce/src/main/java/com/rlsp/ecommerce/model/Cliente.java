@@ -30,7 +30,9 @@ import lombok.Setter;
 /**
  * @SecondaryTable ==> permite ao JPA criar, preencher e trazer valores que estao presentes em uma tabela secundaria
  */
-@SecondaryTable(name="cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
+@SecondaryTable(name="cliente_detalhe", 
+			    pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"),
+			    foreignKey = @ForeignKey(name="fk_cliente_clientedetalhe"))
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true) ==> usado na classe @MappedSuperclass  = "EntidadeBaseInteger.class"
 @Entity
 /**
