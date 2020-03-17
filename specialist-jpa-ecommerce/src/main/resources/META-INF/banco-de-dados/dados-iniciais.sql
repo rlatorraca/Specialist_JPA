@@ -12,7 +12,7 @@ insert into cliente_detalhe (cliente_id, sexo, data_nascimento) values (3, 'MASC
 
 
 insert into pedido (id, cliente_id, data_criacao, total, status) values (1, 1, sysdate(), 998.00, 'AGUARDANDO');
-insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 2, sysdate(), 499.00, 'AGUARDANDO');
+insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 2, sysdate(), 499.00, 'PROCESSANDO');
 insert into pedido (id, cliente_id, data_criacao, total, status) values (3, 3, sysdate(), 1400.00, 'AGUARDANDO');
 
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499.00, 2);

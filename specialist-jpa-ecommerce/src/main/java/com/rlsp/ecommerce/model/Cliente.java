@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -79,7 +80,8 @@ public class Cliente extends EntidadeBaseInteger{
     @Column(name = "data_nascimento", table = "cliente_detalhe") // os valores virao da Tabela Secundaria chamada "cliente_detalhe"
     private LocalDate dataNascimento;
     
-    @OneToMany(mappedBy="cliente")
+    //Quando gravado um PEDIDO, automaticamente podera ser gravado o nome do Cliente junto ao pedido
+    @OneToMany(mappedBy="cliente", cascade = CascadeType.PERSIST)
     private List<Pedido> pedidos;
     
     @ElementCollection // Cria outra TABELA pelo JPA

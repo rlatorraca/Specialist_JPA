@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -74,7 +75,7 @@ public class Produto extends EntidadeBaseInteger{
     private LocalDateTime dataUltimaAtualizacao;
     
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name="produtos_categorias", 
         		//Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Produto
     			joinColumns = @JoinColumn(name="produto_id" , nullable = false, 

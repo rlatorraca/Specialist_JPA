@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -79,6 +80,9 @@ public class Pedido extends EntidadeBaseInteger{
      *   - COllections NAO POSSUEM essa opcao
      *   - Obrigatorio o CAMPO /ATRIBUTO na hora do salvar no DB
      */    
+	
+	// Quando PERSISTIDO em PEDIDO ja sera preenchido os dados de CLIENTE na DB (cascade = CascadeType.PERSIST)
+    //@ManyToOne (optional=false, cascade = CascadeType.PERSIST)
     @ManyToOne (optional=false)
     @JoinColumn(name="cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_cliente")) //foreing key  = pedido -> cliente
     private Cliente cliente;
@@ -100,6 +104,21 @@ public class Pedido extends EntidadeBaseInteger{
      * fetch = FetchType.LAZY (PADRAO) , busca somente NO MOMENTO que for SER USADO
      * fetch = FetchType.EAGER , busca ao carregar o atributo (Antes de ser usado)
      */
+    
+    /**
+     * Cascade ==> propricia que JPA facam com as entidades conectadas facam operacoes em cascata (quando conectadas)
+     *  ** cascade = CascadeType.PERSIST ==> SALVA em "PEDIDO" ira salvar os itens dentro de "ItemPedido"
+     *  ** cascade = CascadeType.MERGE ==> ATUALIZA em "PEDIDO" ira salvar os itens dentro de "ItemPedido"
+     *  ** cascade = CascadeType.REMOVE ==> REMOVE em "PEDIDO" ira salvar os itens dentro de "ItemPedido"
+     *  ** cascade = CascadeType.REFRESH ==> REFRESh em "PEDIDO" ira salvar os itens dentro de "ItemPedido"
+     *  
+     *  ** cascade = CascadeType.ALL ==> TODOS TIPOS DE CASCADE em "PEDIDO" ira salvar os itens dentro de "ItemPedido"
+     *  
+     *  - Pode ser usado tanto em @ManyToOne, quanto @OneToMany
+     */
+    		
+    //Quando criado um PEDIDO, sera automaticamente gravada a "Lista de Itens Pedidos"
+    //@OneToMany(mappedBy="pedido", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @OneToMany(mappedBy="pedido", fetch = FetchType.LAZY)
     private List<ItemPedido> itens;
     

@@ -37,6 +37,9 @@ public class ItemPedido {
     @Column(name = "produto_id") // pega/usa o mesmo valor do atributo produto_id ABAIXO
     private Integer produtoId;
 */
+	/*
+	 *  Não é necessário CascadeType.PERSIST porque possui @MapsId.
+	 */
 	@MapsId("pedidoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "pedido_id", insertable = false, updatable = false)
