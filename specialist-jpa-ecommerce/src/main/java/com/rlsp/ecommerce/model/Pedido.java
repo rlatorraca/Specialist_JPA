@@ -82,7 +82,7 @@ public class Pedido extends EntidadeBaseInteger{
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
-    @Column(name="data_criacao",  updatable = false)
+    @Column(name="data_criacao",  updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
     @Column(name="data_ultima_atualizacao", insertable = false)
@@ -92,6 +92,7 @@ public class Pedido extends EntidadeBaseInteger{
     private LocalDateTime dataConclusao;
 
 
+    @Column(precision = 15, scale = 2, nullable = false)
     private BigDecimal total;
     
     /**
@@ -116,6 +117,7 @@ public class Pedido extends EntidadeBaseInteger{
      * EnumType.STRING = guarda o NOME e nao valor numeral/ordinals
      */
     @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
     private StatusPedido status;
     
     /**

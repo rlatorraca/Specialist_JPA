@@ -52,18 +52,20 @@ public class Produto extends EntidadeBaseInteger{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Integer id;
 
-	@Column(name = "nome_produto")
+	@Column(name = "nome_produto", length = 150, nullable = false) // Padrao do JPA ==> nome varchar(255)
     private String nome;
 
+	@Column(columnDefinition = "varchar(278) not null default 'descricao'") // faz a configuracao do atributo como se fosse um 
     private String descricao;
 
+	@Column(precision = 10, scale = 2) // 19 numeros ( precision ==> contando os decimais) com 2 casas decimais (scale)
     private BigDecimal preco;
     /**
      * @Column (Detalhes)      
      *  - "updatable = false" : para NAO ser MODIFICADO
      *  - "insertable = false" : NAO SERA valorado na criacao do objeto
      */
-    @Column(name="data_criacao", updatable = false)
+    @Column(name="data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
     @Column(name="data_ultima_atualizacao", insertable = false)
@@ -91,7 +93,7 @@ public class Produto extends EntidadeBaseInteger{
     @ElementCollection    
     @CollectionTable(name="produto_tag"
     				, joinColumns = @JoinColumn(name="produto_id"))
-    @Column(name = "tag_name")
+    @Column(name = "tag_name", length = 50, nullable = false)
     private List<String> tags; //==> Lista de ELEMENTOS BÁSICOS
     
     

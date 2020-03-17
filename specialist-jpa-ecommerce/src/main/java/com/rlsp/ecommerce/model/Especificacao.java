@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor // Construtor Padrao [SEM ATRIBUTOS]
 public class Especificacao {
 
-	@Column(name="especificacao_nome")
+	@Column(name="especificacao_nome", length = 100, nullable = false)
 	private String nome;
 	
 	@Column(name="especificacao_valor")

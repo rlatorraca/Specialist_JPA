@@ -52,9 +52,10 @@ public class Cliente extends EntidadeBaseInteger{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Integer id;
     
-	@Column(name = "nome_cliente")
+	@Column(name = "nome_cliente" ,length = 100, nullable = false)
     private String nome;
     
+	@Column(length = 14, nullable = false)
     private String cpf;
     
     /**
@@ -64,11 +65,12 @@ public class Cliente extends EntidadeBaseInteger{
     @Transient
     private String primeiroNome;
     
-    @Column(name = "sexo", table = "cliente_detalhe") // os valores virao da Tabela Secundaria chamada "cliente_detalhe"
+    
     /**
      * EnumType.STRING = guarda o NOME e nao valor numeral/ordinal
      */
     @Enumerated(EnumType.STRING)
+    @Column(name = "sexo", table = "cliente_detalhe", length = 30, nullable = false) // os valores virao da Tabela Secundaria chamada "cliente_detalhe"
     private SexoCliente sexo;
     
     @Column(name = "data_nascimento", table = "cliente_detalhe") // os valores virao da Tabela Secundaria chamada "cliente_detalhe"

@@ -1,6 +1,7 @@
 
 package com.rlsp.ecommerce.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -28,6 +29,7 @@ public class Estoque extends EntidadeBaseInteger{
     @JoinColumn(name="produto_id")
     private Produto produto;
 
+    @Column(columnDefinition = "int(11) not null")
     private Integer quantidade;
 
 }

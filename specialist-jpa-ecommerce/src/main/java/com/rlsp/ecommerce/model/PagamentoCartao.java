@@ -16,7 +16,7 @@ import lombok.Setter;
 @Table(name= "pagamento_cartao") //Esta notacao sera ignorada quando usada a estrategia SINGLE_TABLE
 public class PagamentoCartao extends Pagamento{
 
-	@Column(name = "numero_cartao")
+	@Column(name = "numero_cartao", length = 50 ,nullable = false)
     private String numeroCartao;
     
     

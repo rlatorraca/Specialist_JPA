@@ -56,9 +56,10 @@ public class NotaFiscal extends EntidadeBaseInteger{
      * 	Lob (Large Object)
      */
     @Lob
+    @Column(nullable = false)
     private byte[] xml;
 
-    @Column(name="data_emissao")
+    @Column(name="data_emissao", nullable = false)
     private Date dataEmissao;
     
      
