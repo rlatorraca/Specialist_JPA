@@ -6,6 +6,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -55,7 +56,7 @@ public abstract class Pagamento extends EntidadeBaseInteger{
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pagamento_pedido")) //foreing key  = pagamento -> pedido
     private Pedido pedido;
     
 	/**

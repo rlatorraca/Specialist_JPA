@@ -40,13 +40,13 @@ public class ItemPedido {
 	@MapsId("pedidoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "pedido_id", insertable = false, updatable = false)
-	@JoinColumn(name = "pedido_id")
+	@JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_itempedido_pedido")) //foreing key  = item_Pedido -> pedido
     private Pedido pedido;
 
     @MapsId("produtoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "produto_id" , insertable = false, updatable = false)
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_itempedido_cliente")) //foreing key  = item_pedido -> produto
     private Produto produto;
 
     @Column(name = "preco_produto", precision = 15, scale = 2)

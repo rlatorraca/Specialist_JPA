@@ -14,7 +14,7 @@ public class EstrategiaChavesPrimariaTest extends EntityManagerTest{
 		Categoria categoria = new Categoria();
 		Categoria categoria2 = new Categoria();
 		
-		categoria.setNome("EletroEletronicos");
+		categoria.setNome("Pesca");
 		categoria2.setNome("Esportes");
 		
 		entityManager.getTransaction().begin();		

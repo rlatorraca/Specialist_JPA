@@ -3,6 +3,7 @@ package com.rlsp.ecommerce.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -26,7 +27,7 @@ public class Estoque extends EntidadeBaseInteger{
 //    private Integer id;
 
     @OneToOne(optional=false)
-    @JoinColumn(name="produto_id")
+    @JoinColumn(name="produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_estoque_produto")) //foreing key  = estoque -> produto
     private Produto produto;
 
     @Column(columnDefinition = "int(11) not null")

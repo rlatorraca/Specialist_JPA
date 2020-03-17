@@ -11,6 +11,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
@@ -81,7 +82,10 @@ public class Cliente extends EntidadeBaseInteger{
     
     @ElementCollection // Cria outra TABELA pelo JPA
     @CollectionTable(name = "cliente_contato",
-    				joinColumns = @JoinColumn(name = "cliente_id"))
+    				joinColumns = @JoinColumn(
+    						name = "cliente_id" , nullable = false, foreignKey = @ForeignKey(name = "fk_cliente_clientecontato")//foreing key  = cliente -> cliente_contato
+    						)
+    				) 
     @MapKeyColumn(name = "tipo_do_contato") //O Nome da KEY (do Map<Key,value>) dento do da tabela
     @Column (name = "valor_do_contato") // //O Nome da VALUE (do Map<Key,value>) dento do da tabela
     private Map<String, String> contatos;

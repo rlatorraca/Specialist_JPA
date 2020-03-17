@@ -10,6 +10,7 @@ import com.rlsp.ecommerce.model.Cliente;
 import com.rlsp.ecommerce.model.Pagamento;
 import com.rlsp.ecommerce.model.PagamentoCartao;
 import com.rlsp.ecommerce.model.Pedido;
+import com.rlsp.ecommerce.model.SexoCliente;
 import com.rlsp.ecommerce.model.StatusPagamento;
 
 public class HerancaTest extends EntityManagerTest {
@@ -18,6 +19,8 @@ public class HerancaTest extends EntityManagerTest {
     public void salvarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("Fabiola Morais");
+        cliente.setSexo(SexoCliente.FEMININO);
+        cliente.setCpf("654");
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);

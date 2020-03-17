@@ -1,6 +1,7 @@
 package com.rlsp.ecommerce.iniciandocomjpa;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 
@@ -29,6 +30,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		//Nao precisa de 'entityManager.merge(produto);'
 		//Percebe que existe um ALTERACAO no atributo ja que pega-se 'produto = entityManager.find(Produto.class, 4);'
 		produto.setNome("IBM-Compaq New Generation");
+		produto.setDataCriacao(LocalDateTime.now());
 		
 		entityManager.getTransaction().commit();
 		
@@ -64,6 +66,8 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produtoPersist.setNome("Adega UltraClean");
 		produtoPersist.setDescricao("Adega italiana de alto nivel de qualidade");
 		produtoPersist.setPreco(new BigDecimal(445.29));
+		produtoPersist.setDataCriacao(LocalDateTime.now());
+		
 		
 		entityManager.getTransaction().begin();
 		
@@ -85,6 +89,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produtoMerge.setNome("Refrigerador UtlraSom");
 		produtoMerge.setDescricao("Melhor Produto Chines da decada");
 		produtoMerge.setPreco(new BigDecimal(4245.29));
+		produtoMerge.setDataCriacao(LocalDateTime.now());
 		
 		entityManager.getTransaction().begin();
 		
@@ -106,10 +111,11 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		
 		Produto produto = new Produto();
 		
-		//produto.setId(5);
+		produto.setId(5);
 		produto.setNome("Camera LiveTech");
 		produto.setDescricao("ULTRA HIPER HD IMAGES");
 		produto.setPreco(new BigDecimal(1245.21));
+		produto.setDataCriacao(LocalDateTime.now());
 		
 		entityManager.getTransaction().begin();
 		
@@ -133,7 +139,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	@Test
 	public void atualizarObjetoGerenciado() {
 		
-		Produto produto = entityManager.find(Produto.class, 4);
+		Produto produto = entityManager.find(Produto.class, 2);
 				
 		
 		
@@ -143,6 +149,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		//Nao precisa de 'entityManager.merge(produto);'
 		//Percebe que existe um ALTERACAO no atributo ja que pega-se 'produto = entityManager.find(Produto.class, 4);'
 		produto.setNome("IBM-Compaq New Generation");
+		produto.setDataCriacao(LocalDateTime.now());
 		
 		entityManager.getTransaction().commit();
 		
@@ -164,6 +171,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produto.setNome("IBM-Compaq");
 		produto.setDescricao("Novo IBM server junto com a Compaq");
 		produto.setPreco(new BigDecimal(10500));
+		produto.setDataCriacao(LocalDateTime.now());
 		
 		entityManager.getTransaction().begin();
 		
@@ -230,6 +238,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produto.setNome("Laptop MAC-X");
 		produto.setDescricao("Ultimo MAC-OS de 2020");
 		produto.setPreco(new BigDecimal(6755.09));
+		produto.setDataCriacao(LocalDateTime.now());
 		
 		entityManager.getTransaction().begin();
 		

@@ -12,6 +12,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -79,7 +80,7 @@ public class Pedido extends EntidadeBaseInteger{
      *   - Obrigatorio o CAMPO /ATRIBUTO na hora do salvar no DB
      */    
     @ManyToOne (optional=false)
-    @JoinColumn(name="cliente_id")
+    @JoinColumn(name="cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_cliente")) //foreing key  = pedido -> cliente
     private Cliente cliente;
 
     @Column(name="data_criacao",  updatable = false, nullable = false)

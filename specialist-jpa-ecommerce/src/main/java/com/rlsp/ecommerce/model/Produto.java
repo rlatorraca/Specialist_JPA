@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -55,7 +56,8 @@ public class Produto extends EntidadeBaseInteger{
 	@Column(name = "nome_produto", length = 150, nullable = false) // Padrao do JPA ==> nome varchar(255)
     private String nome;
 
-	@Column(columnDefinition = "varchar(278) not null default 'descricao'") // faz a configuracao do atributo como se fosse um 
+	//@Column(columnDefinition = "varchar(278) not null default 'descricao'") // faz a configuracao do atributo como se fosse um 
+	@Lob // Long text
     private String descricao;
 
 	@Column(precision = 10, scale = 2) // 19 numeros ( precision ==> contando os decimais) com 2 casas decimais (scale)
@@ -74,8 +76,12 @@ public class Produto extends EntidadeBaseInteger{
     
     @ManyToMany
     @JoinTable(name="produtos_categorias", 
-    			joinColumns = @JoinColumn(name="produto_id"), //Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Produto
-    			inverseJoinColumns = @JoinColumn (name ="categoria_id")) //Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Categoria    			
+        		//Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Produto
+    			joinColumns = @JoinColumn(name="produto_id" , nullable = false, 
+    					foreignKey = @ForeignKey(name = "fk_produto_produtocategoria")),//foreing key  = produto -> produto_categoria
+    			inverseJoinColumns = @JoinColumn (name ="categoria_id" , nullable = false, 
+    					foreignKey = @ForeignKey(name = "fk_produtocategoria_produto")) //Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Categoria
+               )     			
     private List<Categoria> categorias;
     
     @OneToOne(mappedBy = "produto")

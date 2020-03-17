@@ -3,6 +3,8 @@ package com.rlsp.ecommerce.iniciandocomjpa;
 import com.rlsp.ecommerce.EntityManagerTest;
 import com.rlsp.ecommerce.model.Cliente;
 import com.rlsp.ecommerce.model.Produto;
+import com.rlsp.ecommerce.model.SexoCliente;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,6 +16,8 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
         //cliente.setId(5);
         cliente.setNome("José Lucas");
+        cliente.setCpf("111");
+        cliente.setSexo(SexoCliente.MASCULINO);
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
