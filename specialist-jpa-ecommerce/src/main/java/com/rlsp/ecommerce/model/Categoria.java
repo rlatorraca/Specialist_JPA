@@ -87,7 +87,7 @@ public class Categoria extends EntidadeBaseInteger{
      *  - categoriaPai <--> categoriaFilha
      */
     @ManyToOne
-    @JoinColumn(name = "categoria_pai_id" , foreignKey = @ForeignKey(name = "fk_categoria_categoria")) //foreing key  = categoria -> categoria (Autorelacionamento)
+    @JoinColumn(name = "categoria_pai_id" , foreignKey = @ForeignKey(name = "fk_categoria_categoriapai")) //foreing key  = categoria -> categoria (Autorelacionamento)
     private Categoria categoriaPai;
 
     @OneToMany(mappedBy = "categoriaPai")
