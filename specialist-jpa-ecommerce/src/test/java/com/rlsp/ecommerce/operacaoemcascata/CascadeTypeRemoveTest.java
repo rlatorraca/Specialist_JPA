@@ -22,6 +22,12 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
         Assert.assertFalse(pedido.getItens().isEmpty());
 
         entityManager.getTransaction().begin();
+        
+    	/**
+    	 * A propriedade "orphanRemoval" em @OneToMany / @OnetToOne
+    	 *  - com essa propriedaded "true" = CascadeType.REMOVE
+    	 */
+        
         /**
          * remove 1 item (de indice 0) da DB (pois e um Objeto Gerenciado, sera atualizado com o begin() + commit() ) ** Precisa do CascadeTupe.PERSIST
          */

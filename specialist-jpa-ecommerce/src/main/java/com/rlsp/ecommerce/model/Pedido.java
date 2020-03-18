@@ -131,7 +131,7 @@ public class Pedido extends EntidadeBaseInteger{
 	 *  
 	 *  @OneToMany(mappedBy="pedido", cascade = CascadeType.REMOVE, orphanRemoval = true) ==> usado para REMOVER 1 item da lista, e deletando de forma automatica do DB
 	 */
-    @OneToMany(mappedBy="pedido")
+    @OneToMany(mappedBy="pedido" , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ItemPedido> itens;
     
     /**
