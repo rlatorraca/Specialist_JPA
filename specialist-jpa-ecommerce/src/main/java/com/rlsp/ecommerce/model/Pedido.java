@@ -32,6 +32,7 @@ import com.rlsp.ecommerce.listener.GerarNotaFiscalListener;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 /**
@@ -53,6 +54,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 /**
  * @EntityListeners ==>  inclui um ARRAY de listeners
@@ -97,7 +99,7 @@ public class Pedido extends EntidadeBaseInteger{
     private LocalDateTime dataConclusao;
 
 
-    @Column(precision = 15, scale = 2, nullable = false)
+    @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal total;
     
     /**
@@ -119,7 +121,17 @@ public class Pedido extends EntidadeBaseInteger{
     		
     //Quando criado um PEDIDO, sera automaticamente gravada a "Lista de Itens Pedidos"
     //@OneToMany(mappedBy="pedido", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @OneToMany(mappedBy="pedido", fetch = FetchType.LAZY)
+    //@OneToMany(mappedBy="pedido", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    //@OneToMany(mappedBy="pedido", cascade = CascadeType.REMOVE)    
+    
+	/**
+	 * A propriedade "orphanRemoval" em @OneToMany / @OnetToOne
+	 *  - com essa propriedade "true" == CascadeType.REMOVE ==> se removido o pai sera removido os "filhos"
+	 *  - possivel excluir 1 item da "List de Itens"
+	 *  
+	 *  @OneToMany(mappedBy="pedido", cascade = CascadeType.REMOVE, orphanRemoval = true) ==> usado para REMOVER 1 item da lista, e deletando de forma automatica do DB
+	 */
+    @OneToMany(mappedBy="pedido")
     private List<ItemPedido> itens;
     
     /**
@@ -129,7 +141,7 @@ public class Pedido extends EntidadeBaseInteger{
     @OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
     
-    @OneToOne(mappedBy = "pedido")	
+    @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
     
 
@@ -176,11 +188,13 @@ public class Pedido extends EntidadeBaseInteger{
 //  @PrePersist
 //  @PreUpdate
 	 public void calcularTotal() {
-	      if (itens != null) {
-	          total = itens.stream()
-	        		  	.map(ItemPedido::getPrecoProduto)
-	        		  	.reduce(BigDecimal.ZERO, BigDecimal::add);
-	      }
+	        if (itens != null) {
+	            total = itens.stream().map(
+	                        i -> new BigDecimal(i.getQuantidade()).multiply(i.getPrecoProduto()))
+	                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+	        } else {
+	            total = BigDecimal.ZERO;
+	        }
 	 }
     
     
@@ -215,5 +229,7 @@ public class Pedido extends EntidadeBaseInteger{
     public void aoCarregar() {
         System.out.println("Após carregar o Pedido.");
     }
+ 
+    
     
 }

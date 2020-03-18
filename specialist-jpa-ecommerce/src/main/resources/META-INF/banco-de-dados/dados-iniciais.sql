@@ -11,12 +11,16 @@ insert into cliente_detalhe (cliente_id, sexo, data_nascimento) values (2, 'MASC
 insert into cliente_detalhe (cliente_id, sexo, data_nascimento) values (3, 'MASCULINO', date_sub(sysdate(), interval 42 year));
 
 
-insert into pedido (id, cliente_id, data_criacao, total, status) values (1, 1, sysdate(), 998.00, 'AGUARDANDO');
-insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 2, sysdate(), 499.00, 'PROCESSANDO');
-insert into pedido (id, cliente_id, data_criacao, total, status) values (3, 3, sysdate(), 1400.00, 'AGUARDANDO');
+insert into pedido (id, cliente_id, data_criacao, total, status) values (1, 1, sysdate(), 998, 'AGUARDANDO');
+insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 2, sysdate(), 4990, 'AGUARDANDO');
+insert into pedido (id, cliente_id, data_criacao, total, status) values (3, 3, sysdate(), 1400, 'AGUARDANDO');
 
-insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499.00, 2);
-insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499.00, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 2, 1400, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 3, 10, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (3, 1, 499, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (3, 3, 10, 1);
 
 
 insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (1, 'PROCESSANDO', '1234-56987-7777-9999', null, 'cartao');
@@ -24,3 +28,6 @@ insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_paga
 
 
 insert into categoria (id, nome_categoria) values (1, 'Eletrônicos');
+insert into categoria (id, nome_categoria) values (2, 'Livros');
+
+insert into produto_categoria (produto_id, categoria_id) values (1, 2);

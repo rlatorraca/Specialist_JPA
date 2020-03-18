@@ -27,27 +27,31 @@
 		          <!--  ** value="create" : apenas envia ao DB os comandos de CREATE / CRIACAO -->
 		          <!-- DELETA e RECRIA o DB toda vez que o JPA REINICIAR/INICIAR --> 
 		            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-		          <!-- DADOS iniciais quando recriada o DB -->  
-		            <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
+		        
 		            
 		           <!-- Gerando o schema do banco com METADADOS (JPA) e scripts -->
 		           <!-- Possiveis valores: a) metadate;  b) script; c) metadata-then-script; d) script-then-script -->
-		            <property name="javax.persistence.schema-generation.create-source" value="metadata-then-script"/>
             		<property name="javax.persistence.schema-generation.drop-source" value="metadata-then-script"/>
+		            <property name="javax.persistence.schema-generation.create-source" value="metadata-then-script"/>
+
 		           
 		          
 		          <!-- Usa esses scripts para gerar o DB e nao as entidades -->
-		          <!-- UPrecisa 1º usar o DROP e depois o CREATE na propriedade ==>  name="javax.persistence.schema-generation.database.action" -->  
-		            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/banco-de-dados/script-criacao.sql"/>
-            		<property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/banco-de-dados/script-remocao.sql"/>
+		          <!-- UPrecisa 1º usar o DROP e depois o CREATE na propriedade ==>  name="javax.persistence.schema-generation.database.action" -->
+		          
+            		<property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/banco-de-dados/script-remocao.sql"/>		            
+		            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/banco-de-dados/script-criacao.sql"/>            		
+            	  <!-- DADOS iniciais quando recriada o DB -->  
+		            <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
             		
             	 <!-- EXPORTANDO os SCRIPTS de schema generation para arquivos externos -->
             	 <!-- Possiveis os seguintes valores: a) none ( para nao exportart; b) drop (exportar apenas o drop); 
-            	 		c) create (exportar apenas o create); d) drop-and-create (exportar ambos) -->
+            	 		c) create (exportar apenas o create); d) drop-and-create (exportar ambos)
             	 	<property name="javax.persistence.schema-generation.scripts.action" value="none"/>
             		<property name="javax.persistence.schema-generation.scripts.create-target" value="/home/rlatorraca/Downloads/script-criacao-exportado.sql"/>
             		<property name="javax.persistence.schema-generation.scripts.drop-target"   value="/home/rlatorraca/Downloads/script-remocao-exportado.sql"/>
-				  		  
+				 -->
+				 
 				  <!-- Mostra o SQL construido no CONSOLE -->
 		            <property name="hibernate.show_sql" value="true" />
 		          <!-- Formato o SQL construido para melhor Leitura -->  

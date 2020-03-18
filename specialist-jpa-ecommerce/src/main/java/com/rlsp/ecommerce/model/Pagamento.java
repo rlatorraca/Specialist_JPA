@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  *  ENTIDADE ABSTRATA x @MappedSuperclass
@@ -44,6 +45,7 @@ import lombok.Setter;
  * Inclui o que eh comum em PagamentoBoleto e PagamentoCartao
  *  
  */
+
 @Getter
 @Setter
 @DiscriminatorColumn(name="tipo_pagamento", discriminatorType = DiscriminatorType.STRING) // ==> usando apenas com SINGEL TABLE strategy

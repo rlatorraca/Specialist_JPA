@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -24,6 +23,7 @@ import com.rlsp.ecommerce.listener.GenericoListener;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 
@@ -32,6 +32,7 @@ import lombok.Setter;
  * @Getter e @Setter = do project LOMBOK (Getters, setters, etc)
  *
  */
+
 @Getter
 @Setter
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -75,8 +76,10 @@ public class Produto extends EntidadeBaseInteger{
     private LocalDateTime dataUltimaAtualizacao;
     
     
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name="produtos_categorias", 
+    //@ManyToMany(cascade = CascadeType.PERSIST)
+    //@ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
+    @JoinTable(name="produto_categoria", 
         		//Coluna da tabela "produtos_categorias" (tabela join) que referencia o id da tabela Produto
     			joinColumns = @JoinColumn(name="produto_id" , nullable = false, 
     					foreignKey = @ForeignKey(name = "fk_produto_produtocategoria")),//foreing key  = produto -> produto_categoria

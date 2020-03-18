@@ -4,6 +4,7 @@ package com.rlsp.ecommerce.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 /** Opcao para Chave Composta  
 	@IdClass(ItemPedidoId.class) // Mostra onde esta a classe da CHAVE COMPOSTA
 */
+
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -39,7 +41,9 @@ public class ItemPedido {
 */
 	/*
 	 *  Não é necessário CascadeType.PERSIST porque possui @MapsId.
+	 *   - Mas SERA NECESSARI para CascadeType.MERGE
 	 */
+	//@ManyToOne(optional = false, cascade = CascadeType.MERGE)
 	@MapsId("pedidoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "pedido_id", insertable = false, updatable = false)
@@ -49,14 +53,14 @@ public class ItemPedido {
     @MapsId("produtoId") //temos que pegar o atributo na Entidade "ItemPedidoId"
     @ManyToOne(optional = false)
     //@JoinColumn(name = "produto_id" , insertable = false, updatable = false)
-    @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_itempedido_cliente")) //foreing key  = item_pedido -> produto
+    @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_itempedido_produto")) //foreing key  = item_pedido -> produto
     private Produto produto;
 
-    @Column(name = "preco_produto", precision = 15, scale = 2)
+    @Column(name = "preco_produto", precision = 15, scale = 2, nullable = false)
     private BigDecimal precoProduto;
 
-    @Column(columnDefinition= "int(10) not null")
+    @Column(columnDefinition= "int(10) not null", nullable = false)
     private Integer quantidade;
 
-
+    
 }
