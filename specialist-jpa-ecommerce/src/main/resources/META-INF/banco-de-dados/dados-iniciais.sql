@@ -17,6 +17,7 @@ insert into pedido (id, cliente_id, data_criacao, total, status) values (3, 3, s
 
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 2, 1400, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 3, 1400, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 3, 10, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (3, 1, 499, 1);
@@ -26,6 +27,7 @@ insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) value
 insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (1, 'PROCESSANDO', '1234-56987-7777-9999', null, 'cartao');
 insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (2, 'RECEBIDO', null, '1234FACE43231-XXX222', 'boleto');
 
+insert into nota_fiscal (pedido_id, xml, data_emissao) values (2, '<xml />', sysdate());
 
 insert into categoria (id, nome_categoria) values (1, 'Eletrônicos');
 insert into categoria (id, nome_categoria) values (2, 'Livros');

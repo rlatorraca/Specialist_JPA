@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.rlsp.ecommerce.EntityManagerTest;
+import com.rlsp.ecommerce.dto.ProdutoDTO;
 import com.rlsp.ecommerce.model.Cliente;
 import com.rlsp.ecommerce.model.Pedido;
 
@@ -117,7 +118,26 @@ public class BasicoJPQLTest extends EntityManagerTest {
         List<Object[]> lista = typedQuery.getResultList();
 
         Assert.assertTrue(lista.get(0).length == 2); // Pega o 1º registro da lista e compara para ver se o tamanho de 2 "registros" (id e nome)
-
+        
+        System.out.println("----------Projetar Resultado ---------------");
         lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
     }
+    
+    /**
+     * Preenchendo / Projetando os dados como DTO e nao Array (como acima)
+     */
+    @Test
+    public void projetraNoDTO() {
+    	
+    	 String jpql = "select new com.rlsp.ecommerce.dto.ProdutoDTO(id, nome) from Produto p";
+    	 
+         TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(jpql, ProdutoDTO.class);
+         List<ProdutoDTO> lista = typedQuery.getResultList();
+         
+         Assert.assertFalse(lista.isEmpty());
+         
+         System.out.println("----------Projetar com DTO ---------------");
+         lista.forEach(p -> System.out.println(p.getId() + " - " + p.getNome()));
+    }
+    
 }

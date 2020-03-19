@@ -25,8 +25,10 @@
 		          <!--  ** value="none" : desabilita a geracao do DB, e  nao executara tbem name="javax.persistence.sql-load-script-source" -->
 		          <!--  ** value="drop" : apenas envia ao DB os comandos de DROP / REMOCAO , e  nao executara tbem name="javax.persistence.sql-load-script-source" -->
 		          <!--  ** value="create" : apenas envia ao DB os comandos de CREATE / CRIACAO -->
+		          <!--  ** value = "drop-and-create" : Dropa e Cria as tabelas do DB-->
 		          <!-- DELETA e RECRIA o DB toda vez que o JPA REINICIAR/INICIAR --> 
-		            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+		            <!--  <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+		            <property name="javax.persistence.schema-generation.database.action" value="none"/> 
 		        
 		            
 		           <!-- Gerando o schema do banco com METADADOS (JPA) e scripts -->
