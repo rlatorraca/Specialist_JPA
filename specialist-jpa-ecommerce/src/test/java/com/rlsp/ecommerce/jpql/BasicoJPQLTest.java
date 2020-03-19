@@ -1,5 +1,7 @@
 package com.rlsp.ecommerce.jpql;
 
+import java.util.List;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -7,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.rlsp.ecommerce.EntityManagerTest;
+import com.rlsp.ecommerce.model.Cliente;
 import com.rlsp.ecommerce.model.Pedido;
 
 public class BasicoJPQLTest extends EntityManagerTest {
@@ -73,5 +76,48 @@ public class BasicoJPQLTest extends EntityManagerTest {
 
 //        List<Pedido> lista = query.getResultList();
 //        Assert.assertFalse(lista.isEmpty());
+    }
+    
+    /**
+     * Mostra como pegar ATRIBUTOS especifica de cada Entidade e seu "TIPO DE RETORNO"
+     */
+    
+    @Test
+    public void selecionarUmAtributoParaRetorno() {
+        String jpql = "select p.nome from Produto p";
+
+        /**
+         * Usa-se a "String.class" no retorno pois queremos o "nome"
+         */
+        TypedQuery<String> typedQuery = entityManager.createQuery(jpql, String.class);
+        List<String> lista = typedQuery.getResultList();
+        Assert.assertTrue(String.class.equals(lista.get(0).getClass()));
+
+        
+        /**
+         * Usa-se a "Cliente.class" no retorno pois queremos o "cliente"
+         */
+        String jpqlCliente = "select p.cliente from Pedido p";
+        TypedQuery<Cliente> typedQueryCliente = entityManager.createQuery(jpqlCliente, Cliente.class);
+        List<Cliente> listaClientes = typedQueryCliente.getResultList();
+        Assert.assertTrue(Cliente.class.equals(listaClientes.get(0).getClass()));
+    }
+    
+    
+    /**
+     * Fazendo uma PROJECAO
+     * 	 - Signigica retornar DIFERENTES atributos de uma MESMA Entidade
+     *   - Usa-se o TIPO DE RETORNO ==> Object[].class (Array de objetos), pois tem Tipos De Retorno DISTINTOS
+     */
+    @Test
+    public void projetarOResultado() {
+        String jpql = "select p.id, p.nome from Produto p";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assert.assertTrue(lista.get(0).length == 2); // Pega o 1º registro da lista e compara para ver se o tamanho de 2 "registros" (id e nome)
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
     }
 }
