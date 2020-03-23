@@ -1,4 +1,4 @@
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (1, 'Kindle', 499.00, date_sub(sysdate(), interval 4 day), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
+insert into produto (id, nome_produto, preco, data_criacao, descricao) values (1, 'Kindle', 599.00, date_sub(sysdate(), interval 4 day), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
 insert into produto (id, nome_produto, preco, data_criacao, descricao) values (2, 'Câmera GoPro Hero 7', 1400.00, date_sub(sysdate(), interval 3 day), 'Desempenho 2x melhor.');
 insert into produto (id, nome_produto, preco, data_criacao, descricao) values (3, 'Teclado Microsoft', 10.00, date_sub(sysdate(), interval 2 day), 'Mais estiloso que um MAC.');
 insert into produto (id, nome_produto, preco, data_criacao, descricao) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'O melhor ajuste de foco.');
@@ -16,12 +16,14 @@ insert into pedido (id, cliente_id, data_criacao, total, status) values (1, 1, d
 insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 1, date_sub(sysdate(), interval 5 day), 499.0, 'AGUARDANDO');
 insert into pedido (id, cliente_id, data_criacao, total, status) values (3, 2, date_sub(sysdate(), interval 4 day), 3500.0, 'PAGO');
 insert into pedido (id, cliente_id, data_criacao, total, status) values (4, 3, date_sub(sysdate(), interval 2 day), 499.0, 'PAGO');
+insert into pedido (id, cliente_id, data_criacao, total, status) values (5, 1, date_sub(sysdate(), interval 1 day), 599.0, 'PAGO');
 
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 3, 1400, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (3, 4, 3500, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (4, 1, 499, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (5, 1, 599, 1)
 
 
 insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (1, 'PROCESSANDO', '1234-56987-7777-9999', null, 'cartao');
@@ -48,3 +50,4 @@ insert into categoria (nome_categoria) values ('Mesa & Banho');
 insert into produto_categoria (produto_id, categoria_id) values (1, 2);
 insert into produto_categoria (produto_id, categoria_id) values (3, 8);
 insert into produto_categoria (produto_id, categoria_id) values (4, 8);
+
