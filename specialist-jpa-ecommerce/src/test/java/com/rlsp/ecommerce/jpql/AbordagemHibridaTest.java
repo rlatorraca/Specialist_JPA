@@ -32,21 +32,21 @@ public class AbordagemHibridaTest extends EntityManagerTest {
 
         /**
          * Keys                          Values
-
-		-->  os.version              :  OS Version  
-		-->  os.name                 :  OS Name
-		-->  os.arch                 :  OS Architecture	
-		-->  java.compiler           :  Name of the compiler you are using
-		-->  java.ext.dirs           :  Extension directory path
-		-->  java.library.path       :  Paths to search libraries whenever loading
-		-->  path.separator          :  Path separator
-		-->  file.separator          :  File separator
-		-->  user.dir                :  Current working directory of User
-		-->  user.name               :  Account name of User
-		-->  java.vm.version         :  JVM implementation version
-		-->  java.vm.name            :  JVM implementation name
-		-->  java.home               :  Java installation directory
-		-->  java.runtime.version    :  JVM version
+		 *
+		 *   os.version              :  OS Version  
+		 *   os.name                 :  OS Name
+		 *   os.arch                 :  OS Architecture	
+		 *   java.compiler           :  Name of the compiler you are using
+		 *   java.ext.dirs           :  Extension directory path
+		 *   java.library.path       :  Paths to search libraries whenever loading
+		 *   path.separator          :  Path separator
+		 *   file.separator          :  File separator
+		 *   user.dir                :  Current working directory of User
+		 *   user.name               :  Account name of User
+		 *   java.vm.version         :  JVM implementation version
+		 *   java.vm.name            :  JVM implementation name
+		 *   java.home               :  Java installation directory
+		 *   java.runtime.version    :  JVM version
          */
         String variavelPath = System.getProperty("os.name"); // Pega o valor da variavel do sistema
         System.out.println(variavelPath); 
