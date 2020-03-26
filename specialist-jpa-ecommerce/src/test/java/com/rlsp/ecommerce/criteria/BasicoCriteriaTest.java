@@ -140,8 +140,10 @@ public class BasicoCriteriaTest extends EntityManagerTest {
       //CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createQuery(Tuple.class);
         Root<Produto> root = criteriaQuery.from(Produto.class);
 
-        criteriaQuery.select(criteriaBuilder
-                .tuple(root.get("id").alias("id_alias"), root.get("nome").alias("nome_alias")));
+        /**
+         * criteriaBuilder.TUPLE
+         */
+        criteriaQuery.select(criteriaBuilder.tuple(root.get("id").alias("id_alias"), root.get("nome").alias("nome_alias")));
         
         //criteriaQuery.multiselect(root.get("id"), root.get("nome")); 
         
@@ -152,21 +154,22 @@ public class BasicoCriteriaTest extends EntityManagerTest {
         lista.forEach(t -> System.out.println("ID: " + t.get("id_alias") + ", Nome: " + t.get("nome_alias")));
         //lista.forEach(t -> System.out.println("ID: " + t.get(0) + ", Nome: " + t.get(1)));
     }
-	
-	
-	
-	
-	
-	
+		
 
+    /**
+     * Trabalhando Com DTO
+     * 	- melhor que TUPLE e OBJECT[]
+     */
     @Test
     public void projetarOResultadoDTO() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ProdutoDTO> criteriaQuery = criteriaBuilder.createQuery(ProdutoDTO.class);
         Root<Produto> root = criteriaQuery.from(Produto.class);
 
-        criteriaQuery.select(criteriaBuilder
-                .construct(ProdutoDTO.class, root.get("id"), root.get("nome")));
+        /**
+         * criteriaBuilder.CONSTRUCT
+         */
+        criteriaQuery.select(criteriaBuilder.construct(ProdutoDTO.class, root.get("id"), root.get("nome")));
 
         TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(criteriaQuery);
         List<ProdutoDTO> lista = typedQuery.getResultList();

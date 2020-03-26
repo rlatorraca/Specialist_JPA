@@ -28,6 +28,24 @@ insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) value
 
 insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (1, 'PROCESSANDO', '1234-56987-7777-9999', null, 'cartao');
 insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (2, 'RECEBIDO', null, '1234FACE43231-XXX222', 'boleto');
+insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (3, 'RECEBIDO', null, '8910', 'boleto');
+insert into pagamento (pedido_id, status, numero_cartao, codigo_barra, tipo_pagamento) values (4, 'PROCESSANDO',  '1234-56987-4444-7777', null, 'cartao');
+
+insert into nota_fiscal (pedido_id, xml, data_emissao) values (2, '<xml />', sysdate());
+
+insert into categoria (id, nome) values (1, 'Eletrodomésticos');
+insert into categoria (id, nome) values (2, 'Livros');
+insert into categoria (id, nome) values (3, 'Esportes');
+insert into categoria (id, nome) values (4, 'Futebol');
+insert into categoria (id, nome) values (5, 'Natação');
+insert into categoria (id, nome) values (6, 'Notebooks');
+insert into categoria (id, nome) values (7, 'Smartphones');
+insert into categoria (id, nome) values (8, 'Câmeras');
+
+insert into produto_categoria (produto_id, categoria_id) values (1, 2);
+insert into produto_categoria (produto_id, categoria_id) values (3, 8);
+insert into produto_categoria (produto_id, categoria_id) values (4, 8);
+
 
 insert into nota_fiscal (pedido_id, xml, data_emissao) values (2, '<xml />', sysdate());
 
