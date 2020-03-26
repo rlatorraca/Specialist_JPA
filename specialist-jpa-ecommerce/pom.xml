@@ -63,6 +63,7 @@
         		</configuration>        		
       	   </plugin>
       	   
+      	  <!--  Plugin para incluir os METAMODELS (Produto_.class, etc) -->
       	   <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
