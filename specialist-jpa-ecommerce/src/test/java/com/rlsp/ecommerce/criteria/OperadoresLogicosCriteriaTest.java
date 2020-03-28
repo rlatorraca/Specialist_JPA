@@ -1,6 +1,7 @@
 package com.rlsp.ecommerce.criteria;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -30,14 +31,23 @@ public class OperadoresLogicosCriteriaTest extends EntityManagerTest {
 
         criteriaQuery.where(
                 criteriaBuilder.or(
-                        criteriaBuilder.equal(
-                                root.get(Pedido_.status), StatusPedido.AGUARDANDO),
-                        criteriaBuilder.equal(
-                                root.get(Pedido_.status), StatusPedido.PAGO)
-                ),
-                criteriaBuilder.greaterThan(
-                        root.get(Pedido_.total), new BigDecimal(499))
+                        criteriaBuilder.equal(root.get(Pedido_.status), StatusPedido.AGUARDANDO),
+                        criteriaBuilder.equal(root.get(Pedido_.status), StatusPedido.PAGO)),
+                criteriaBuilder.greaterThan(root.get(Pedido_.total), new BigDecimal(499))
         );
+        
+//        criteriaQuery.where(
+//                criteriaBuilder.and(
+//                        criteriaBuilder.equal(root.get(Pedido_.status), StatusPedido.AGUARDANDO),
+//                        criteriaBuilder.equal(root.get(Pedido_.status), StatusPedido.PAGO)));
+        
+        
+//        criteriaQuery.where(
+//                criteriaBuilder.and(
+//                        criteriaBuilder.greaterThan(root.get(Pedido_.total), new BigDecimal(499)),
+//                        criteriaBuilder.equal(root.get(Pedido_.status), StatusPedido.PAGO)),
+//                criteriaBuilder.greaterThan(root.get(Pedido_.dataCriacao), LocalDateTime.now().minusDays(5))
+//        );
 
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
 
