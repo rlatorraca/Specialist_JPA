@@ -21,6 +21,9 @@ public class MetaModelTest extends EntityManagerTest {
 	 * MetaModel
 	 * 	- Sao classes que tem os mesmo NOME das ENTIDAS, com informacoes dos Atributos da Entidade
 	 *  - Serve para organiza o codigo e evita utlizar strings
+	 *  - Valida os tipos do Atributos
+	 *  
+	 *  OBS: Precisa ser CLEAN PACKAGE da aplicacao com '-Dmaven.test.skip=true', para evitar os tests
 	 */
 	
 	/**
