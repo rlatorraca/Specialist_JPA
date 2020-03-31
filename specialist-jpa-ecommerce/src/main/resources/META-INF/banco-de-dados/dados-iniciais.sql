@@ -1,7 +1,8 @@
 insert into produto (id, nome_produto, preco, data_criacao, descricao) values (1, 'Kindle', 599.00, date_sub(sysdate(), interval 4 day), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (2, 'Câmera GoPro Hero 7', 1400.00, date_sub(sysdate(), interval 3 day), 'Desempenho 2x melhor.');
+insert into produto (id, nome_produto, preco, data_criacao, descricao) values (2, 'Câmera GoPro Hero 7', 1500.00, date_sub(sysdate(), interval 3 day), 'Desempenho 2x melhor.');
 insert into produto (id, nome_produto, preco, data_criacao, descricao) values (3, 'Teclado Microsoft', 10.00, date_sub(sysdate(), interval 2 day), 'Mais estiloso que um MAC.');
 insert into produto (id, nome_produto, preco, data_criacao, descricao) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'O melhor ajuste de foco.');
+insert into produto (id, nome_produto, preco, data_criacao, descricao) values (5, 'Microfone de Lapela', 123.0, sysdate(), 'O melhor audio de lapela do Brasil.');
 
 insert into cliente (id, nome_cliente, cpf) values (1, 'Fernando Medeiros',"333");
 insert into cliente (id, nome_cliente, cpf) values (2, 'Marcos Mariano',"222");
@@ -21,7 +22,7 @@ insert into pedido (id, cliente_id, data_criacao, total, status) values (5, 1, d
 insert into pedido (id, cliente_id, data_criacao, total, status) values (6, 2, sysdate(), 599.0, 'AGUARDANDO');
 
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
-insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 3, 1400, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 2, 1400, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (3, 4, 3500, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (4, 1, 499, 1);

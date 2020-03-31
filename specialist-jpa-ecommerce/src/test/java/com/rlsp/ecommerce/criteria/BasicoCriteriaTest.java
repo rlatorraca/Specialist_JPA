@@ -17,6 +17,7 @@ import com.rlsp.ecommerce.dto.ProdutoDTO;
 import com.rlsp.ecommerce.model.Cliente;
 import com.rlsp.ecommerce.model.Cliente_;
 import com.rlsp.ecommerce.model.Pedido;
+import com.rlsp.ecommerce.model.Pedido_;
 import com.rlsp.ecommerce.model.Produto;
 
 /**
@@ -197,6 +198,22 @@ public class BasicoCriteriaTest extends EntityManagerTest {
         lista.forEach(c -> System.out.println(c.getId() + ", " + c.getNome()));
     }
    
+
+    @Test
+    public void usarDistinct() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+        root.join(Pedido_.itens);
+
+        criteriaQuery.select(root);
+        criteriaQuery.distinct(true);
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> lista = typedQuery.getResultList();
+
+        lista.forEach(p -> System.out.println("ID: " + p.getId()));
+    }
 
 
 }

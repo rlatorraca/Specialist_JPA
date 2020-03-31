@@ -16,9 +16,14 @@ public class GroupByTest extends EntityManagerTest {
 		//Total de vendas dentre as categorias que mais vendem (soma de vendas > 1500).
 		/**
 		 * HAVING
-		 * 	- Possivel o uso de funcoes de agregacao (avg, sum, min, max)
+		 * 	- 
 		 *                            OU
-		 *  - as colunas de propriedade do group by (no caso ==> cat.id)
+		 *  - usado como clasula WHERE para quando se AGRUPA (groupby)
+		 *  	** com GROUP BY : deve-se usar as colunas de propriedade JA USADAS no SELECT (nas projecoes) (no caso ==> cat.id)
+		 *  
+		 *      ** Possivel o uso de funcoes de agregacao (avg, sum, min, max)
+		 *      
+		 *      ** E possivel o uso de 
 		 */
         String jpql = "select cat.nome, sum(ip.precoProduto) from ItemPedido ip " +
                 " join ip.produto pro join pro.categorias cat " +
