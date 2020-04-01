@@ -15,11 +15,11 @@
 	    <version>8.0.19</version>
 	</dependency>
 	
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core - FEB 13, 2020 -->
+	<!-- NUCLEO DO HIBERNATE - https://mvnrepository.com/artifact/org.hibernate/hibernate-core - MAR 31, 2020 -->
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
-	    <version>5.4.12.Final</version>
+	    <version>5.4.13.Final</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/junit/junit - Jan 01, 2020-->
