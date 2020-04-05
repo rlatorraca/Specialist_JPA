@@ -7,10 +7,15 @@
     <!-- Configuracoes para UM determinado DB -->
     <persistence-unit name="Ecommerce-PU">
     	
+
+    	<mapping-file>META-INF/consultas/categoria.xml</mapping-file>    	
     	<mapping-file>META-INF/consultas/pedido.xml</mapping-file>
     	<mapping-file>META-INF/consultas/produto.xml</mapping-file>
-    
-        <properties>
+
+    	
+    	<properties>
+
+		
         
         <!-- STREAM de conexao -->
         <!-- 'createDatabaseIfNotExist=true' >>>  se nao existir cria o DB -->

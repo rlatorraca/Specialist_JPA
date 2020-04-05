@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EntityResult;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -25,6 +26,7 @@ import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import com.rlsp.ecommerce.listener.GenericoListener;
@@ -54,6 +56,9 @@ import lombok.ToString;
 
 @Getter
 @Setter
+
+@SqlResultSetMapping(name="item_pedido-produto.ItemPedido-Produto",  // Mapeia essa ENTIDADE para pesquisa com SQL (name= "nome+da+tabela".Nome+Entidade)
+					 entities= {@EntityResult(entityClass = ItemPedido.class), @EntityResult(entityClass = Produto.class)})
 
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 /**
