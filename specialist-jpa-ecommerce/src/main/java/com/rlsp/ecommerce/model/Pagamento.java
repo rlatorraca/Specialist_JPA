@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,6 +58,7 @@ import lombok.ToString;
 public abstract class Pagamento extends EntidadeBaseInteger{
 
     @MapsId
+    @NotNull
     @OneToOne(optional = false)
     @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pagamento_pedido")) //foreing key  = pagamento -> pedido
     private Pedido pedido;
@@ -65,6 +67,7 @@ public abstract class Pagamento extends EntidadeBaseInteger{
      * EnumType.STRING = guarda o NOME e nao valor numeral/ordinal
      */
     @Enumerated(EnumType.STRING)
+    @NotNull
     @Column(length = 30, nullable = false)
     private StatusPagamento status;
 }

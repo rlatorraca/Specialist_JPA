@@ -38,7 +38,8 @@
 		<scope>provided</scope>
 	</dependency>
 	
-	<!--  MetaModel  -->
+	<!--  METAMODEL (Produto_.class <==> Produto.class) -->
+	<!-- A metamodel or surrogate model is a model of a model, and metamodeling is the process of generating such metamodels.  -->
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-jpamodelgen</artifactId>
@@ -46,6 +47,20 @@
 	    <scope>provided</scope>
 	</dependency>
 	
+	<!-- Hibernate Validator + Bean Validation- Apr 2, 2020 -->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>6.1.2.Final</version>
+	    <scope>compile</scope>
+	</dependency>
+	
+	<!-- Expression Language 3.0,  Dec 14, 2018-->
+	<dependency>
+   		<groupId>org.glassfish</groupId>
+   		<artifactId>javax.el</artifactId>
+   		<version>3.0.1-b11</version>
+	</dependency>
 
   </dependencies>
   

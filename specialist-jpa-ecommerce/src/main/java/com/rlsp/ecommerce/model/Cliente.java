@@ -16,18 +16,34 @@ import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ParameterMode;
+import javax.persistence.PostLoad;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+
+@NamedStoredProcedureQuery(name = "procedure_compraram_acima_media", procedureName = "compraram_acima_media",
+						   parameters = {
+								   	@StoredProcedureParameter(name = "ano", type = Integer.class, mode = ParameterMode.IN)
+						},
+						   resultClasses = Cliente.class
+)
+
 /**
  * @SecondaryTable ==> permite ao JPA criar, preencher e trazer valores que estao presentes em uma tabela secundaria
  */
@@ -56,9 +72,12 @@ public class Cliente extends EntidadeBaseInteger{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Integer id;
     
+	@NotBlank
 	@Column(name = "nome_cliente" ,length = 100, nullable = false)
     private String nome;
     
+	@NotNull
+	@Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)")
 	@Column(length = 14, nullable = false)
     private String cpf;
     
@@ -73,6 +92,7 @@ public class Cliente extends EntidadeBaseInteger{
     /**
      * EnumType.STRING = guarda o NOME e nao valor numeral/ordinal
      */
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "sexo", table = "cliente_detalhe", length = 30, nullable = false) // os valores virao da Tabela Secundaria chamada "cliente_detalhe"
     private SexoCliente sexo;
@@ -80,6 +100,7 @@ public class Cliente extends EntidadeBaseInteger{
     @Column(name = "data_nascimento", table = "cliente_detalhe") // os valores virao da Tabela Secundaria chamada "cliente_detalhe"
     private LocalDate dataNascimento;
     
+    @Past // Apenas datas do PASSADO
     //Quando gravado um PEDIDO, automaticamente podera ser gravado o nome do Cliente junto ao pedido
     @OneToMany(mappedBy="cliente", cascade = CascadeType.PERSIST)
     private List<Pedido> pedidos;
@@ -94,6 +115,7 @@ public class Cliente extends EntidadeBaseInteger{
     @Column (name = "valor_do_contato") // //O Nome da VALUE (do Map<Key,value>) dento do da tabela
     private Map<String, String> contatos;
     
+    @PostLoad
     public void configuraPrimeiroNome() {
     	if(nome != null && !nome.isBlank()) {
     		int index = nome.indexOf(" ");

@@ -11,6 +11,12 @@
     	<mapping-file>META-INF/consultas/categoria.xml</mapping-file>    	
     	<mapping-file>META-INF/consultas/pedido.xml</mapping-file>
     	<mapping-file>META-INF/consultas/produto.xml</mapping-file>
+    	
+    	<!--AUTO = Se o Hibernate Validation estiver no PATH (Libraries/ POM.XML) esssa tag serve para mostra ao DB sera necessaria a validacao Hibernate (BEAN VALIDATION) antes de SALVAR, 
+    	           caso nao esteja no PATH (nao for um library / POM.xml) nao utilizara o Hibernate Validation (Bean Validation)-->
+    	<!-- CALLBACK = obrigado a implementacao no PATH(library / POM.xml)  -->
+    	<!-- NONE = sem validacao -->
+    	<validation-mode>CALLBACK</validation-mode>
 
     	
     	<properties>

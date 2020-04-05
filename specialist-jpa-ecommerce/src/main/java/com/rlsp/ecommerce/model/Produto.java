@@ -28,6 +28,10 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import com.rlsp.ecommerce.dto.ProdutoDTO;
 import com.rlsp.ecommerce.listener.GenericoListener;
@@ -125,6 +129,7 @@ public class Produto extends EntidadeBaseInteger{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Integer id;
 
+	@NotBlank
 	@Column(name = "nome_produto", length = 150, nullable = false) // Padrao do JPA ==> nome varchar(255)
     private String nome;
 
@@ -132,16 +137,22 @@ public class Produto extends EntidadeBaseInteger{
 	@Lob // Long text
     private String descricao;
 
+	@Positive //preco deve ser > ZERO
 	@Column(precision = 10, scale = 2) // 19 numeros ( precision ==> contando os decimais) com 2 casas decimais (scale)
     private BigDecimal preco;
-    /**
+    
+	/**
      * @Column (Detalhes)      
      *  - "updatable = false" : para NAO ser MODIFICADO
      *  - "insertable = false" : NAO SERA valorado na criacao do objeto
      */
+	@PastOrPresent
+    @NotNull
     @Column(name="data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
+	@PastOrPresent
+    @NotNull
     @Column(name="data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
     

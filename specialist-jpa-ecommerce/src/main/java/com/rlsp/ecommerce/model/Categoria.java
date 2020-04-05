@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -79,6 +81,7 @@ public class Categoria extends EntidadeBaseInteger{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Integer id;
 
+	@NotBlank
 	@Column(name = "nome_categoria", length = 100, nullable = false)
     private String nome;
 

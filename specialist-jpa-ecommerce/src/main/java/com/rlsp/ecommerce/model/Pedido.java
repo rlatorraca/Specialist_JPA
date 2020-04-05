@@ -13,7 +13,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EntityResult;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,13 +27,16 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import com.rlsp.ecommerce.listener.GenericoListener;
 import com.rlsp.ecommerce.listener.GerarNotaFiscalListener;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 
 /**
@@ -90,20 +92,27 @@ public class Pedido extends EntidadeBaseInteger{
 	
 	// Quando PERSISTIDO em PEDIDO ja sera preenchido os dados de CLIENTE na DB (cascade = CascadeType.PERSIST)
     //@ManyToOne (optional=false, cascade = CascadeType.PERSIST)
+	@NotNull
     @ManyToOne (optional=false)
     @JoinColumn(name="cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_cliente")) //foreing key  = pedido -> cliente
     private Cliente cliente;
 
+    @PastOrPresent // Data de criacao dev ser do PASSADO ou Atual
+    @NotNull
     @Column(name="data_criacao",  updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
+    @PastOrPresent // Data de criacao dev ser do PASSADO ou Atual
     @Column(name="data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
     
+    @PastOrPresent // Data de criacao dev ser do PASSADO ou Atual
     @Column(name="data_conclusao")
     private LocalDateTime dataConclusao;
 
 
+    @NotNull
+    @Positive // total deve ser > ZERO
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal total;
     
@@ -136,6 +145,7 @@ public class Pedido extends EntidadeBaseInteger{
 	 *  
 	 *  @OneToMany(mappedBy="pedido", cascade = CascadeType.REMOVE, orphanRemoval = true) ==> usado para REMOVER 1 item da lista, e deletando de forma automatica do DB
 	 */
+    @NotEmpty
     @OneToMany(mappedBy="pedido" , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ItemPedido> itens;
     
@@ -154,6 +164,7 @@ public class Pedido extends EntidadeBaseInteger{
      * EnumType.STRING = guarda o NOME e nao valor numeral/ordinals
      */
     @Enumerated(EnumType.STRING)
+    @NotNull
     @Column(length = 30, nullable = false)
     private StatusPedido status;
     

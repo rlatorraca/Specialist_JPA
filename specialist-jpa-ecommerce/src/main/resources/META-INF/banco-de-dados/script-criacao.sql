@@ -10,7 +10,7 @@ create table ecm_categoria (cat_id integer not null auto_increment, cat_nome var
 
 create function acima_media_faturamento(valor double) returns boolean reads sql data return valor > (select avg(total) from pedido);
 
-create procedure buscar_nome_produto(in produto_id int, out produto_nome varchar(255)) begin select nome into produto_nome from produto where id = produto_id; end
+create procedure buscar_nome_produto(in produto_id int, out produto_nome varchar(255)) begin select nome_produto into produto_nome from produto where id = produto_id; end
 
 create procedure compraram_acima_media(in ano integer) begin select cli.*, clid.* from cliente cli join cliente_detalhe clid on clid.cliente_id = cli.id join pedido ped on ped.cliente_id = cli.id where ped.status = 'PAGO' and year(ped.data_criacao) = ano group by ped.cliente_id having sum(ped.total) >= (select avg(total_por_cliente.sum_total) from (select sum(ped2.total) sum_total from pedido ped2 where ped2.status = 'PAGO' and year(ped2.data_criacao) = ano group by ped2.cliente_id) as total_por_cliente); end
 

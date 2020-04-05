@@ -11,6 +11,11 @@ import javax.persistence.Lob;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +53,7 @@ public class NotaFiscal extends EntidadeBaseInteger{
      *  - faz uma replicacao / copia da chave Primaria para dentro da chave estrangeira
      */
     @MapsId
+    @NotNull
     @OneToOne (optional=false)
 	@JoinColumn(name="pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_nf_pedido")) //foreing key  = notafiscal -> pedido
     private Pedido pedido;
@@ -57,9 +63,13 @@ public class NotaFiscal extends EntidadeBaseInteger{
      * 	Lob (Large Object)
      */
     @Lob
+    @NotEmpty // nao pode ser vazio
     @Column(nullable = false)
     private byte[] xml;
 
+    @PastOrPresent // A data de ser da emissao ou do pasado
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="data_emissao", nullable = false)
     private Date dataEmissao;
     

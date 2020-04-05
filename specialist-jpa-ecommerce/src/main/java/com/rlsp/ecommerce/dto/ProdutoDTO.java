@@ -16,7 +16,7 @@ public class ProdutoDTO {
 	private String nome;
 
 	/**
-	 * Necessario o uso de CONSTRUCTOR ou @AllArgsConstructor (do Lombk)
+	 * Necessario o uso de CONSTRUCTOR ou @AllArgsConstructor (do Lombok)
 	 */
 //	public ProdutoDTO(Integer id, String nome) {
 //		super();
