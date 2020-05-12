@@ -1,8 +1,8 @@
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (1, 'Kindle', 599.00, date_sub(sysdate(), interval 4 day), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (2, 'Câmera GoPro Hero 7', 1500.00, date_sub(sysdate(), interval 3 day), 'Desempenho 2x melhor.');
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (3, 'Teclado Microsoft', 10.00, date_sub(sysdate(), interval 2 day), 'Mais estiloso que um MAC.');
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'O melhor ajuste de foco.');
-insert into produto (id, nome_produto, preco, data_criacao, descricao) values (5, 'Microfone de Lapela', 123.0, sysdate(), 'O melhor audio de lapela do Brasil.');
+insert into produto (id, nome_produto, preco, data_criacao, ativo, descricao) values (1, 'Kindle', 599.00, date_sub(sysdate(), interval 4 day), 'SIM', 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
+insert into produto (id, nome_produto, preco, data_criacao, ativo, descricao) values (2, 'Câmera GoPro Hero 7', 1500.00, date_sub(sysdate(), interval 3 day), 'SIM', 'Desempenho 2x melhor.');
+insert into produto (id, nome_produto, preco, data_criacao, ativo, descricao) values (3, 'Teclado Microsoft', 10.00, date_sub(sysdate(), interval 2 day), 'SIM', 'Mais estiloso que um MAC.');
+insert into produto (id, nome_produto, preco, data_criacao, ativo, descricao) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'NAO', 'O melhor ajuste de foco.');
+insert into produto (id, nome_produto, preco, data_criacao, ativo, descricao) values (5, 'Microfone de Lapela', 123.0, sysdate(), 'SIM', 'O melhor audio de lapela do Brasil.');
 
 insert into cliente (id, nome_cliente, cpf) values (1, 'Fernando Medeiros',"333");
 insert into cliente (id, nome_cliente, cpf) values (2, 'Marcos Mariano',"222");

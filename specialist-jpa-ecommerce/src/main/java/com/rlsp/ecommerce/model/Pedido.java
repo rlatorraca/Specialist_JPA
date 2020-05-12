@@ -16,6 +16,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
@@ -69,8 +73,33 @@ import lombok.Setter;
  */
 @EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 @Entity
+@NamedEntityGraphs({
+    @NamedEntityGraph(
+            name = "Pedido.dadosEssencias",
+            attributeNodes = {
+                    @NamedAttributeNode("dataCriacao"),
+                    @NamedAttributeNode("status"),
+                    @NamedAttributeNode("total"),
+                    @NamedAttributeNode(
+                            value = "cliente",
+                            subgraph = "cli"
+                    )
+            },
+            subgraphs = {
+                    @NamedSubgraph(
+                            name = "cli",
+                            attributeNodes = {
+                                    @NamedAttributeNode("nome"),
+                                    @NamedAttributeNode("cpf")
+                            }
+                    )
+            }
+    )
+})
 @Table(name= "pedido")
-public class Pedido extends EntidadeBaseInteger{
+public class Pedido extends EntidadeBaseInteger
+		//implements PersistentAttributeInterceptable
+{
 
 	/**
 	 * Pega a chave PRIMARIA (id) ao estender "EntidadeBaseInteger
@@ -153,11 +182,66 @@ public class Pedido extends EntidadeBaseInteger{
      * Como a classe Pagamento e uma Entidade Abstrata pode-se fazer referencia
      */
     
-    @OneToOne(mappedBy = "pedido")
-    private Pagamento pagamento;
-    
-    @OneToOne(mappedBy = "pedido")
-    private NotaFiscal notaFiscal;
+	//  @LazyToOne(LazyToOneOption.NO_PROXY)
+	    @OneToOne(mappedBy = "pedido")
+	//	@OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+	    private Pagamento pagamento;
+	    
+	//  @LazyToOne(LazyToOneOption.NO_PROXY) 
+	    @OneToOne(mappedBy = "pedido")
+	//    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+	    private NotaFiscal notaFiscal;
+	    
+	//  public NotaFiscal getNotaFiscal() {
+	//  if (this.persistentAttributeInterceptor != null) {
+	//      return (NotaFiscal) persistentAttributeInterceptor
+	//              .readObject(this, "notaFiscal", this. notaFiscal);
+	//  }
+	//
+	//  return this.notaFiscal;
+	//}
+	//
+	//public void setNotaFiscal(NotaFiscal notaFiscal) {
+	//  if (this.persistentAttributeInterceptor != null) {
+	//      this.notaFiscal = (NotaFiscal) persistentAttributeInterceptor
+	//              .writeObject(this, "notaFiscal", this.notaFiscal, notaFiscal);
+	//  } else {
+	//      this.notaFiscal = notaFiscal;
+	//  }
+	//}
+	//
+	//public Pagamento getPagamento() {
+	//  if (this.persistentAttributeInterceptor != null) {
+	//      return (Pagamento) persistentAttributeInterceptor
+	//              .readObject(this, "pagamento", this.pagamento);
+	//  }
+	//
+	//  return this.pagamento;
+	//}
+	//
+	//public void setPagamento(Pagamento pagamento) {
+	//  if (this.persistentAttributeInterceptor != null) {
+	//      this.pagamento = (Pagamento) persistentAttributeInterceptor
+	//              .writeObject(this, "pagamento", this.pagamento, pagamento);
+	//  } else {
+	//      this.pagamento = pagamento;
+	//  }
+	//}
+	//
+	//@Setter(AccessLevel.NONE)
+	//@Getter(AccessLevel.NONE)
+	//@Transient
+	//private PersistentAttributeInterceptor persistentAttributeInterceptor;
+	//
+	//@Override
+	//public PersistentAttributeInterceptor $$_hibernate_getInterceptor() {
+	//  return this.persistentAttributeInterceptor;
+	//}
+	//
+	//@Override
+	//public void $$_hibernate_setInterceptor(PersistentAttributeInterceptor persistentAttributeInterceptor) {
+	//  this.persistentAttributeInterceptor = persistentAttributeInterceptor;
+	//}
     
 
     /**

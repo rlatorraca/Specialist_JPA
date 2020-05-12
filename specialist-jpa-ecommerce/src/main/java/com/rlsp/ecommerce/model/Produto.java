@@ -8,6 +8,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
+import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -35,6 +36,7 @@ import javax.validation.constraints.Positive;
 
 import com.rlsp.ecommerce.dto.ProdutoDTO;
 import com.rlsp.ecommerce.listener.GenericoListener;
+import com.rlsp.ecommerce.model.converter.BooleanToSimNaoConverter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -151,8 +153,7 @@ public class Produto extends EntidadeBaseInteger{
     @Column(name="data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
-	@PastOrPresent
-    @NotNull
+	@PastOrPresent   
     @Column(name="data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
     
@@ -200,5 +201,8 @@ public class Produto extends EntidadeBaseInteger{
     @Lob
     private byte[] fotoProduto;
 	
-	
+    @Convert(converter = BooleanToSimNaoConverter.class)
+    @NotNull
+    @Column(length = 3, nullable = false)
+    private Boolean ativo = Boolean.FALSE;
 }

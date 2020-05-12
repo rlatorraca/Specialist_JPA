@@ -1,105 +1,139 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.rlsp</groupId>
-  <artifactId>specialist-jpa-ecommerce</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>specialist-jpa-ecommerce</name>
-  
-  <dependencies>
-  
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java - DEC 04, 2019 -->
-	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.19</version>
-	</dependency>
-	
-	<!-- NUCLEO DO HIBERNATE - https://mvnrepository.com/artifact/org.hibernate/hibernate-core - MAR 31, 2020 -->
-	<dependency>
-	    <groupId>org.hibernate</groupId>
-	    <artifactId>hibernate-core</artifactId>
-	    <version>5.4.13.Final</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/junit/junit - Jan 01, 2020-->
-	<dependency>
-	    <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.13</version>
-	    <scope>test</scope>
-	</dependency>	
-	
-	<!-- LOMBOK = esconde (nao deixa explicito) os codigos de GETTERS, SETTERS, EQUALS e HASCODE do codigo -->
-	<dependency>
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok</artifactId>
-		<version>1.18.12</version>
-		<scope>provided</scope>
-	</dependency>
-	
-	<!--  METAMODEL (Produto_.class <==> Produto.class) -->
-	<!-- A metamodel or surrogate model is a model of a model, and metamodeling is the process of generating such metamodels.  -->
-	<dependency>
-	    <groupId>org.hibernate</groupId>
-	    <artifactId>hibernate-jpamodelgen</artifactId>
-	    <version>5.4.12.Final</version>
-	    <scope>provided</scope>
-	</dependency>
-	
-	<!-- Hibernate Validator + Bean Validation- Apr 2, 2020 -->
-	<dependency>
-	    <groupId>org.hibernate</groupId>
-	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.1.2.Final</version>
-	    <scope>compile</scope>
-	</dependency>
-	
-	<!-- Expression Language 3.0,  Dec 14, 2018-->
-	<dependency>
-   		<groupId>org.glassfish</groupId>
-   		<artifactId>javax.el</artifactId>
-   		<version>3.0.1-b11</version>
-	</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  </dependencies>
-  
-  
-   <build>
-	   <plugins>
-    	  
-    	  <plugin>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-compiler-plugin</artifactId>	
-        	<version>3.8.1</version>
-        		<configuration>
-          			<source>13</source>
-          			<target>13</target>
-        		</configuration>        		
-      	   </plugin>
-      	   
-      	  <!--  Plugin para incluir os METAMODELS (Produto_.class, etc) -->
-      	   <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>target/generated-sources/annotations</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>	
-    	</plugins>
-  </build>
-  
-  
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rlsp</groupId>
+	<artifactId>specialist-jpa-ecommerce</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>specialist-jpa-ecommerce</name>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java - DEC 
+			04, 2019 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.19</version>
+		</dependency>
+
+		<!-- NUCLEO DO HIBERNATE - https://mvnrepository.com/artifact/org.hibernate/hibernate-core 
+			- MAR 31, 2020 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.13.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit - Jan 01, 2020 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- LOMBOK = esconde (nao deixa explicito) os codigos de GETTERS, SETTERS, 
+			EQUALS e HASCODE do codigo -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- METAMODEL (Produto_.class <==> Produto.class) -->
+		<!-- A metamodel or surrogate model is a model of a model, and metamodeling 
+			is the process of generating such metamodels. -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>5.4.12.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Hibernate Validator + Bean Validation- Apr 2, 2020 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.2.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Hibernate-hikaricp - Controla Pool de Conexoes (May 11, 2020) -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-hikaricp</artifactId>
+			<version>6.0.0.Alpha5</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<!-- Expression Language 3.0, Dec 14, 2018 -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.1-b11</version>
+		</dependency>
+
+		<!-- Serve para fazer Testes Unitário -->
+		<!-- Tem a implementacao de Shared Cache (2º Nivel) -->
+		<!-- Implementa a especificacao JCache -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-testing</artifactId>
+			<version>6.0.0.Alpha5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Dependencia para os Testes Unitarios -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.7.0-M1</version>
+			<scope>test</scope>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>13</source>
+					<target>13</target>
+				</configuration>
+			</plugin>
+
+			<!-- Plugin para incluir os METAMODELS (Produto_.class, etc) -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/annotations</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
 </project>
