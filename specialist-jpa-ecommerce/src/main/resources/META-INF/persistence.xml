@@ -103,7 +103,7 @@
 				  <!-- Mostra o SQL construido no CONSOLE -->
 		            <property name="hibernate.show_sql" value="true" />
 		          <!-- Formato o SQL construido para melhor Leitura -->  
-		            <property name="hibernate.format_sql" value="true" />
+		            <property name="hibernate.format_sql" value="false" />
         
 
         

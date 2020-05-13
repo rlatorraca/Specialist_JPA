@@ -52,7 +52,9 @@ public class LockPessimistaTest {
             entityManager1.getTransaction().begin();
 
             log("Runnable 01 vai carregar todos os produtos.");
-            List<Produto> lista = entityManager1
+            
+            @SuppressWarnings("unchecked")
+			List<Produto> lista = entityManager1
                     .createQuery("select p from Produto p where p.id in (3,4,5)")
                     .setLockMode(LockModeType.PESSIMISTIC_READ)
                     .getResultList();
@@ -203,6 +205,11 @@ public class LockPessimistaTest {
 
     @Test
     public void usarLockPessimistaLockModeTypePessimisticWrite() {
+    	
+    	/**
+    	 * ockModeType.PESSIMISTIC_WRITE ==> pede o LOCK do DB, e as outras transicoes vao esperar ate que ela consiga ESCREVER (Commitar) dentro do DB
+    	 * 
+    	 * 		PS: ** Se dois ou mais transacoes pedirem o LOCK, ira ficar esperando a Liberacao do LOCK apos a gravacao
         Runnable runnable1 = () -> {
             log("Iniciando Runnable 01.");
 
@@ -279,6 +286,11 @@ public class LockPessimistaTest {
 
     @Test
     public void usarLockPessimistaLockModeTypePessimisticRead() {
+    	/**
+    	 * LockModeType.PESSIMISTIC_READ ==> pede o LOCK do DB e as outras transacoes poderao LER mas Nao Podem Commitar
+    	 * 
+    	 * 		PS: ** Se dois ou mais transacoes pedirem o LOCK, ira ganahar o LOCK a transcacao que COMMITAR PRIMEIRO
+    	 */
         Runnable runnable1 = () -> {
             log("Iniciando Runnable 01.");
 
@@ -289,7 +301,7 @@ public class LockPessimistaTest {
 
             log("Runnable 01 vai carregar o produto 1.");
             Produto produto = entityManager1.find(
-                    Produto.class, 1, LockModeType.PESSIMISTIC_READ);
+                    Produto.class, 1, LockModeType.PESSIMISTIC_READ); // 
 
             log("Runnable 01 vai alterar o produto.");
             produto.setDescricao(novaDescricao);
