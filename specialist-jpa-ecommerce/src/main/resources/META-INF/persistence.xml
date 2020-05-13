@@ -12,6 +12,14 @@
     	<mapping-file>META-INF/consultas/pedido.xml</mapping-file>
     	<mapping-file>META-INF/consultas/produto.xml</mapping-file>
     	
+    	<!-- Configura de CACHE -->
+    	<!-- UNSPECIFIED = nao espeficado (quem decide sobre cache de 2º nivel sera a IMPLEMENTACAO sera o Hibernate {no chache para Hibernate}) -->
+    	<!-- ALL =  todos serao CACHEADAS mesmo se houver marcacao @cachable(false) -->
+    	<!-- DISABLE_SELECTIVE =  Entidade marcadas como @cachable(false) (ignora o cache de 2º nivel para elas) -->
+    	<!-- ENABLE_SELECTIVE =  Entidade marcadas como cachable = false (cria o cache de 2º nivel para elas) -->
+    	<!-- NONE =  sem cache-->
+    	<shared-cache-mode>ALL</shared-cache-mode>
+    	
     	<!--AUTO = Se o Hibernate Validation estiver no PATH (Libraries/ POM.XML) esssa tag serve para mostra ao DB sera necessaria a validacao Hibernate (BEAN VALIDATION) antes de SALVAR, 
     	           caso nao esteja no PATH (nao for um library / POM.xml) nao utilizara o Hibernate Validation (Bean Validation)-->
     	<!-- CALLBACK = obrigado a implementacao no PATH(library / POM.xml)  -->
@@ -46,7 +54,15 @@
             
             <!-- Configracao do CACHE -->
             <!-- Faz o cache para todas entdiades -->
-            <property name="javax.persistence.sharedCache.mode" value="ALL"/>
+            <!-- CONFIGURADO ACIMA com "<shared-cache-mode>"  -->
+           <!--  <property name="javax.persistence.sharedCache.mode" value="ALL"/> -->
+           
+           <!-- Aponta que sera usado uma Implementacao do JCache + EhCache-->
+            <property name="hibernate.cache.region.factory_class"
+                      value="org.hibernate.cache.jcache.internal.JCacheRegionFactory"/>            
+            <property name="hibernate.javax.cache.provider"
+                      value="org.ehcache.jsr107.EhcacheCachingProvider"/>
+            <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
             
 
           <!-- PROPRIEDADES DO JPA -->
@@ -58,7 +74,7 @@
 		          <!--  ** value = "drop-and-create" : Dropa e Cria as tabelas do DB-->
 		          <!-- DELETA e RECRIA o DB toda vez que o JPA REINICIAR/INICIAR --> 
 		            <!--  <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
-		            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> 
+		            <property name="javax.persistence.schema-generation.database.action" value="none"/> 
 		        
 		            
 		           <!-- Gerando o schema do banco com METADADOS (JPA) e scripts -->

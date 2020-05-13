@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -34,6 +35,9 @@ public class ItemPedido {
 	@EmbeddedId // INCORPORA a Entidade "ItemPedidoId" ==> CHAVE COMPOSTA
 	private ItemPedidoId id;
 	
+	//usado para o controle de CONCORRENCIA
+	@Version
+	private Integer versao;
 	
 /**
     @EqualsAndHashCode.Include
