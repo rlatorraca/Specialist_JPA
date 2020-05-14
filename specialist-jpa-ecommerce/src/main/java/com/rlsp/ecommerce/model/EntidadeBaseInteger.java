@@ -5,6 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,4 +32,8 @@ public class EntidadeBaseInteger {
 		//usado para o controle de CONCORRENCIA
 		@Version
 		private Integer versao;
+		
+		// Para tranbalhar Multitemancy na Abordagem no BANCO DE DADOS
+		@NotBlank
+		private String tenant;
 }

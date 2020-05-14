@@ -31,13 +31,19 @@
     	a<jta-data-source>exampleDS</jta-data-source>  -->
     	
     	<properties>
+    
+    	<!--PostgreSQL - Configuracoes -->	
+	   		<!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/algaworks_ecommerce" />  -->
+            <!--<property name="javax.persistence.jdbc.user" value="postgres" />  -->
+            <!--<property name="javax.persistence.jdbc.password" value="1234" />  -->
+            <!--<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />  -->
 	
         
         <!-- STREAM de conexao -->
         <!-- 'createDatabaseIfNotExist=true' >>>  se nao existir cria o DB -->
         <!-- '&amp;useTimezone=true&amp;serverTimezone=UTC' >>> apenas para o WINDOWS -->
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/rlsp_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=America/Halifax" />
+                      value="jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=America/Halifax" />
          
          <!-- USUARIO + PASSWORD + DRIVER para conectar o DB --> 
             <property name="javax.persistence.jdbc.user" value="root" />            
@@ -47,6 +53,9 @@
 	        <!-- SEMPRE USADA (Desenvolvimento e PRODUCAO -->
 	     	<!-- Fala pro JPA o dialeto (DB) que sera usado -->
 	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+	        
+	       <!--  Dialecto do PostgreSQL --> 
+           <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" />  -->
          
 			<property name="hibernate.hikari.maximumPoolSize" value="8" />
             <property name="hibernate.connection.provider_class"
@@ -64,6 +73,20 @@
                       value="org.ehcache.jsr107.EhcacheCachingProvider"/>
             <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
             
+           <!-- Configuracao da Abordagem POR SCHEMA para Multitenancy com Hibernate-->         
+            <!-- <property name="hibernate.multiTenancy" value="SCHEMA" /> -->
+            <!-- Aponta para qual esquema sera a CONEXAO -->
+            <!-- <property name="hibernate.tenant_identifier_resolver" value="com.rlsp.ecommerce.multitenancyEcmCurrentTenantIdentifierResolver"/> -->
+			<!-- Cria a Conexao do DB para o esquema --> 
+            <!-- <property name="hibernate.multi_tenant_connection_provider" value="com.rlsp.ecommerce.multitenancy.EcmSchemaMultiTenantConnectionProvider"/> -->
+          
+           <!-- Configuracao da Abordagem POR MAQUNA para Multitenancy com Hibernate-->
+           <!--<property name="hibernate.multiTenancy" value="DATABASE" /> -->	
+           <!--<property name="hibernate.tenant_identifier_resolver" 
+                      value="com.rlsp.ecommerce.multitenancy.EcmCurrentTenantIdentifierResolver"/> -->
+            <!-- Cria a Conexao do DB para o esquema --> 
+            <!--<property name="hibernate.multi_tenant_connection_provider"
+                      value="com.rlsp.ecommerce.multitenancy.EcmMachineMultiTenantConnectionProvider"/> -->   
 
           <!-- PROPRIEDADES DO JPA -->
           <!-- Usada para fase de DESENVOLVIIMENTO e TESTES -->          
