@@ -98,5 +98,40 @@ public class Categoria extends EntidadeBaseInteger{
 
     @ManyToMany(mappedBy="categorias")
     private List<Produto> produtos;  //Busca na Entidade PRODUTO no atributo categorias(List<Categoria>)
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Categoria getCategoriaPai() {
+		return categoriaPai;
+	}
+
+	public void setCategoriaPai(Categoria categoriaPai) {
+		this.categoriaPai = categoriaPai;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+    
+    
+    
     
 }

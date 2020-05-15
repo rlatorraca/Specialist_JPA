@@ -34,8 +34,7 @@ import javax.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 
 @NamedStoredProcedureQuery(name = "procedure_compraram_acima_media", procedureName = "compraram_acima_media",
 						   parameters = {
@@ -65,6 +64,8 @@ import lombok.Setter;
 			   		@Index(name = "idx_name", columnList = "nome_cliente")
 			   	 }
 	)
+@Getter
+@Setter
 public class Cliente extends EntidadeBaseInteger{
 
 //    @EqualsAndHashCode.Include
@@ -124,6 +125,64 @@ public class Cliente extends EntidadeBaseInteger{
     		}
     	}
     }
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getPrimeiroNome() {
+		return primeiroNome;
+	}
+
+	public void setPrimeiroNome(String primeiroNome) {
+		this.primeiroNome = primeiroNome;
+	}
+
+	public SexoCliente getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(SexoCliente sexo) {
+		this.sexo = sexo;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public Map<String, String> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(Map<String, String> contatos) {
+		this.contatos = contatos;
+	}
+    
+    
     
 
 }

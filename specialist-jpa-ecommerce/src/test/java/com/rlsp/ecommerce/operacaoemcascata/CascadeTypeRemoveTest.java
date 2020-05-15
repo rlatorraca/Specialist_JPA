@@ -77,8 +77,7 @@ public class CascadeTypeRemoveTest extends EntityManagerTest {
 
     //@Test
     public void removerItemPedidoEPedido() {
-        ItemPedido itemPedido = entityManager.find(
-                ItemPedido.class, new ItemPedidoId(1, 1));
+        ItemPedido itemPedido = entityManager.find(ItemPedido.class, new ItemPedidoId(1, 1));
 
         entityManager.getTransaction().begin();
         entityManager.remove(itemPedido); // Necessário CascadeType.REMOVE no atributo "pedido".

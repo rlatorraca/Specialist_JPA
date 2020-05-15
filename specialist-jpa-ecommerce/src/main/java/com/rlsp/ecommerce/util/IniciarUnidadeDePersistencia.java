@@ -6,6 +6,8 @@ import javax.persistence.Persistence;
 
 import com.rlsp.ecommerce.model.Produto;
 
+
+
 /**
  * @EntityManager ==> atraves da instancia dessa interface fa-se todas as operacoes com JPA (pesquisa, alteracao, insercao, delete, etc) 
  *
@@ -22,6 +24,7 @@ public class IniciarUnidadeDePersistencia {
 		
 		//Fazer os testes ou atividades aqui !!!
 		Produto produto = entityManager.find(Produto.class, 1);
+		
 		System.out.println(produto.getNome().toString());
 				
 		/**

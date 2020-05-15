@@ -31,8 +31,7 @@ public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
 
 	        criteriaQuery.select(root);
 
-	        criteriaQuery.where(criteriaBuilder.notEqual(
-	                root.get(Pedido_.total), new BigDecimal(499)));
+//	        criteriaQuery.where(criteriaBuilder.notEqual(root.get(Pedido_.total), new BigDecimal(499)));
 
 	        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
 	        List<Pedido> lista = typedQuery.getResultList();
@@ -54,8 +53,7 @@ public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
 //	        criteriaQuery.where(criteriaBuilder.between(
 //	        				    root.get(Pedido_.total), new BigDecimal(499),new BigDecimal(2398)));
 	        
-	        criteriaQuery.where(criteriaBuilder.between(root.get(Pedido_.dataCriacao),
-	        		            LocalDateTime.now().minusDays(5).withSecond(0).withMinute(0).withHour(0),
+	        criteriaQuery.where(criteriaBuilder.between(root.get(Pedido_.dataCriacao), LocalDateTime.now().minusDays(5).withSecond(0).withMinute(0).withHour(0),
 	                            LocalDateTime.now()));
 
 	        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);

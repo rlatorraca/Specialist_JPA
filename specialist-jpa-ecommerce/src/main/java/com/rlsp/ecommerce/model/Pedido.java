@@ -60,8 +60,6 @@ import lombok.Setter;
  *     
  */
 
-@Getter
-@Setter
 
 @SqlResultSetMapping(name="item_pedido-produto.ItemPedido-Produto",  // Mapeia essa ENTIDADE para pesquisa com SQL (name= "nome+da+tabela".Nome+Entidade)
 					 entities= {@EntityResult(entityClass = ItemPedido.class), @EntityResult(entityClass = Produto.class)})
@@ -96,10 +94,14 @@ import lombok.Setter;
             }
     )
 })
+
+
+@Getter
+@Setter
 @Table(name= "pedido")
-public class Pedido extends EntidadeBaseInteger
+public class Pedido extends EntidadeBaseInteger {
 		//implements PersistentAttributeInterceptable
-{
+
 
 	/**
 	 * Pega a chave PRIMARIA (id) ao estender "EntidadeBaseInteger
@@ -177,6 +179,7 @@ public class Pedido extends EntidadeBaseInteger
     @NotEmpty
     @OneToMany(mappedBy="pedido" , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ItemPedido> itens;
+
     
     /**
      * Como a classe Pagamento e uma Entidade Abstrata pode-se fazer referencia
@@ -287,15 +290,15 @@ public class Pedido extends EntidadeBaseInteger
     
 //  @PrePersist
 //  @PreUpdate
-	 public void calcularTotal() {
-	        if (itens != null) {
-	            total = itens.stream().map(
-	                        i -> new BigDecimal(i.getQuantidade()).multiply(i.getPrecoProduto()))
-	                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-	        } else {
-	            total = BigDecimal.ZERO;
-	        }
-	 }
+    public void calcularTotal() {
+        if (itens != null) {
+//            total = itens.stream().map(
+//                        i -> new BigDecimal(i.getQuantidade()).multiply(i.getPrecoProduto()))
+//                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            total = BigDecimal.ZERO;
+        }
+    }
     
     
     @PreUpdate // Acionado em TODOS Updates
@@ -329,7 +332,86 @@ public class Pedido extends EntidadeBaseInteger
     public void aoCarregar() {
         System.out.println("Após carregar o Pedido.");
     }
- 
-    
-    
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDateTime getDataUltimaAtualizacao() {
+		return dataUltimaAtualizacao;
+	}
+
+	public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
+		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+	}
+
+	public LocalDateTime getDataConclusao() {
+		return dataConclusao;
+	}
+
+	public void setDataConclusao(LocalDateTime dataConclusao) {
+		this.dataConclusao = dataConclusao;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+	public List<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
+	public NotaFiscal getNotaFiscal() {
+		return notaFiscal;
+	}
+
+	public void setNotaFiscal(NotaFiscal notaFiscal) {
+		this.notaFiscal = notaFiscal;
+	}
+
+	public StatusPedido getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPedido status) {
+		this.status = status;
+	}
+
+	public EnderecoEntregaPedido getEnderecoEntrega() {
+		return enderecoEntrega;
+	}
+
+	public void setEnderecoEntrega(EnderecoEntregaPedido enderecoEntrega) {
+		this.enderecoEntrega = enderecoEntrega;
+	}
+
+	
 }

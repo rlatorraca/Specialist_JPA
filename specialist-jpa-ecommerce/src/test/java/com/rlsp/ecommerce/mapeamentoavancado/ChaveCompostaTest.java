@@ -1,11 +1,19 @@
 package com.rlsp.ecommerce.mapeamentoavancado;
 
-import com.rlsp.ecommerce.EntityManagerTest;
-import com.rlsp.ecommerce.model.*;
+import java.time.LocalDateTime;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
+import com.rlsp.ecommerce.EntityManagerTest;
+import com.rlsp.ecommerce.model.Cliente;
+import com.rlsp.ecommerce.model.ItemPedido;
+import com.rlsp.ecommerce.model.ItemPedidoId;
+import com.rlsp.ecommerce.model.Pedido;
+import com.rlsp.ecommerce.model.Produto;
+import com.rlsp.ecommerce.model.StatusPedido;
+
+
 
 public class ChaveCompostaTest extends EntityManagerTest {
 

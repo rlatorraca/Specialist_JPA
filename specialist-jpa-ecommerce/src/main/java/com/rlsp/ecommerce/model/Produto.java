@@ -49,8 +49,7 @@ import lombok.Setter;
  *
  */
 
-@Getter
-@Setter
+
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @NamedNativeQueries({
@@ -120,7 +119,9 @@ import lombok.Setter;
     		      },
         indexes = { 
         		     @Index(name = "idx_nome", columnList = "nome_produto") }
-   )
+)
+@Getter
+@Setter
 public class Produto extends EntidadeBaseInteger{
 
 	/**
@@ -205,4 +206,95 @@ public class Produto extends EntidadeBaseInteger{
     @NotNull
     @Column(length = 3, nullable = false)
     private Boolean ativo = Boolean.FALSE;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDateTime getDataUltimaAtualizacao() {
+		return dataUltimaAtualizacao;
+	}
+
+	public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
+		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public List<Especificacao> getEspecificacao() {
+		return especificacao;
+	}
+
+	public void setEspecificacao(List<Especificacao> especificacao) {
+		this.especificacao = especificacao;
+	}
+
+	public byte[] getFotoProduto() {
+		return fotoProduto;
+	}
+
+	public void setFotoProduto(byte[] fotoProduto) {
+		this.fotoProduto = fotoProduto;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+    
+	
 }

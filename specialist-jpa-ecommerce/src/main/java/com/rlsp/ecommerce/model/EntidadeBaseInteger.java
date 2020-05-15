@@ -36,4 +36,8 @@ public class EntidadeBaseInteger {
 		// Para tranbalhar Multitemancy na Abordagem no BANCO DE DADOS
 		@NotBlank
 		private String tenant;
+
+		
+		
+		
 }

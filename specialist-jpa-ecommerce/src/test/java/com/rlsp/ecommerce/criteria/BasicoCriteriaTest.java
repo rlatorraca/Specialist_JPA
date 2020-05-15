@@ -15,9 +15,7 @@ import org.junit.Test;
 import com.rlsp.ecommerce.EntityManagerTest;
 import com.rlsp.ecommerce.dto.ProdutoDTO;
 import com.rlsp.ecommerce.model.Cliente;
-import com.rlsp.ecommerce.model.Cliente_;
 import com.rlsp.ecommerce.model.Pedido;
-import com.rlsp.ecommerce.model.Pedido_;
 import com.rlsp.ecommerce.model.Produto;
 
 /**
@@ -187,7 +185,7 @@ public class BasicoCriteriaTest extends EntityManagerTest {
         CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
 
-        criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Cliente_.nome)),criteriaBuilder.desc(root.get(Cliente_.dataNascimento)));
+        //criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Cliente_.nome)),criteriaBuilder.desc(root.get(Cliente_.dataNascimento)));
 //        criteriaQuery.orderBy(criteriaBuilder.asc(root.get(Cliente_.nome)));
 
         TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);
@@ -204,7 +202,7 @@ public class BasicoCriteriaTest extends EntityManagerTest {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
-        root.join(Pedido_.itens);
+        //root.join(Pedido_.itens);
 
         criteriaQuery.select(root);
         criteriaQuery.distinct(true);

@@ -101,23 +101,22 @@
 		</dependency>
 
 		<!-- LOMBOK = esconde (nao deixa explicito) os codigos de GETTERS, SETTERS, 
-			EQUALS e HASCODE do codigo -->
+			EQUALS e HASCODE do codigo <dependency> <groupId>org.projectlombok</groupId> 
+			<artifactId>lombok</artifactId> <version>1.18.12</version> <scope>provided</scope> 
+			</dependency> -->
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
-			<scope>provided</scope>
+			<artifactId>lombok-maven-plugin</artifactId>
+			<version>1.18.12.0</version>
 		</dependency>
+
 
 		<!-- METAMODEL (Produto_.class <==> Produto.class) -->
 		<!-- A metamodel or surrogate model is a model of a model, and metamodeling 
 			is the process of generating such metamodels. -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>5.4.12.Final</version>
-			<scope>provided</scope>
-		</dependency>
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-jpamodelgen</artifactId> 
+			<version>5.4.12.Final</version> <scope>provided</scope> </dependency> -->
 
 		<!-- Hibernate Validator + Bean Validation- Apr 2, 2020 -->
 		<dependency>
@@ -203,6 +202,19 @@
 				<configuration>
 					<source>13</source>
 					<target>13</target>
+					<outputEncoding>UTF-8</outputEncoding>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.12</version>
+						</path>
+						<path>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>5.4.12.Final</version>							
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 

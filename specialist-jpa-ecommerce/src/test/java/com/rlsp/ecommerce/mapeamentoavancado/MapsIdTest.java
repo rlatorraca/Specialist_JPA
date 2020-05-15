@@ -1,5 +1,6 @@
 package com.rlsp.ecommerce.mapeamentoavancado;
 
+import com.ibm.icu.math.BigDecimal;
 import com.rlsp.ecommerce.EntityManagerTest;
 import com.rlsp.ecommerce.model.*;
 import org.junit.Assert;

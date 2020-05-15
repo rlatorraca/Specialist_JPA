@@ -6,10 +6,13 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -28,6 +31,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = "item_pedido-produto.ItemPedido-Produto",
+                entities = { @EntityResult(entityClass = ItemPedido.class),
+                        @EntityResult(entityClass = Produto.class) })
+})
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
@@ -81,5 +89,6 @@ public class ItemPedido {
     @Column(columnDefinition= "int(10) not null", nullable = false)
     private Integer quantidade;
 
+	
     
 }
