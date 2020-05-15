@@ -25,7 +25,7 @@ import lombok.Setter;
  *  - schema = o schema no DB (quando se tem varios schemas / DB diferentes)
  *  - catalog = separar as tabelas em catalagos
  */
-@Table(name= "pagamento_boleto") //Esta notacao sera ignorada quando usada a estrategia SINGLE_TABLE
+//@Table(name= "pagamento_boleto") //Esta notacao sera ignorada quando usada a estrategia SINGLE_TABLE
 public class PagamentoBoleto extends Pagamento{
 
 	@NotBlank

@@ -27,15 +27,16 @@ import lombok.Setter;
 /** Opcao para Chave Composta  
 	@IdClass(ItemPedidoId.class) // Mostra onde esta a classe da CHAVE COMPOSTA
 */
-
-@Getter
-@Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+/** 
 @SqlResultSetMappings({
         @SqlResultSetMapping(name = "item_pedido-produto.ItemPedido-Produto",
                 entities = { @EntityResult(entityClass = ItemPedido.class),
                         @EntityResult(entityClass = Produto.class) })
-})
+}) */
+
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {

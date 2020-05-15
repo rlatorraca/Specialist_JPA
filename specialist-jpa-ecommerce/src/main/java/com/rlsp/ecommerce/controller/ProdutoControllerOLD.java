@@ -8,30 +8,33 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rlsp.ecommerce.model.Produto;
-import com.rlsp.ecommerce.repository.ProdutosRepository;
-import com.rlsp.ecommerce.service.ProdutosService;
+import com.rlsp.ecommerce.repository.ProdutosRepositoryOLD;
+import com.rlsp.ecommerce.service.ProdutoServiceOLD;
+
 
 @Controller
-@RequestMapping("/produtos")
-public class ProdutoController {
+@RequestMapping("/produtosOLD")
+public class ProdutoControllerOLD {
 
     @Autowired
-    private ProdutosRepository produtos;
+    private ProdutosRepositoryOLD produtos;
 
     @Autowired
-    private ProdutosService service;
+    private ProdutoServiceOLD service;
 
     @PostMapping("/{id}/editar")
-    public ModelAndView atualizar(@PathVariable Integer id,
+    public ModelAndView atualizar(@RequestAttribute String tenant,
+                                  @PathVariable Integer id,
                                   @RequestParam Map<String, Object> produto,
                                   RedirectAttributes redirectAttributes) {
-        service.atualizar(id, produto);
+        service.atualizar(id, tenant, produto);
 
         redirectAttributes.addFlashAttribute("mensagem", "Atualização feita com sucesso!");
 
@@ -39,15 +42,17 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable Integer id) {
-        return novo(produtos.buscar(id));
+    public ModelAndView editar(
+            @RequestAttribute String tenant, @PathVariable Integer id) {
+        return novo(produtos.buscar(id, tenant));
     }
 
     @PostMapping("/novo")
-    public ModelAndView criar(Produto produto,
+    public ModelAndView criar(@RequestAttribute String tenant,
+                              Produto produto,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {
-        Produto atualizado = service.criar(produto);
+        Produto atualizado = service.criar(tenant, produto);
 
         redirectAttributes.addFlashAttribute("mensagem", "Registro criado com sucesso!");
 
@@ -63,9 +68,9 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ModelAndView listar() {
+    public ModelAndView listar(@RequestAttribute String tenant) {
         ModelAndView mv = new ModelAndView("produtos/produtos-lista");
-        mv.addObject("produtos", produtos.listar());
+        mv.addObject("produtos", produtos.listar(tenant));
         return mv;
     }
 }

@@ -18,7 +18,8 @@ public class TenantFilter implements Filter {
         String subdomain = serverName.substring(0, serverName.indexOf("."));
 
         //  EcmCurrentTenantIdentifierResolver.setTenantIdentifier(subdomain + "_ecommerce");
-        request.setAttribute("tenant", subdomain);
+        //request.setAttribute("tenant", subdomain);
+
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

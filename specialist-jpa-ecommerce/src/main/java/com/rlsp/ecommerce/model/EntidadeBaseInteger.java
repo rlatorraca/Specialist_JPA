@@ -34,8 +34,8 @@ public class EntidadeBaseInteger {
 		private Integer versao;
 		
 		// Para tranbalhar Multitemancy na Abordagem no BANCO DE DADOS
-		@NotBlank
-		private String tenant;
+		//@NotBlank
+		//private String tenant  ;
 
 		
 		

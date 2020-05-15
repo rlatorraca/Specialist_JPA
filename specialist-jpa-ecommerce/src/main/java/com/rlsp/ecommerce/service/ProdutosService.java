@@ -14,22 +14,21 @@ import com.rlsp.ecommerce.model.Produto;
 import com.rlsp.ecommerce.repository.ProdutosRepository;
 
 @Service
-public class ProdutoService {
+public class ProdutosService {
 
     @Autowired
     private ProdutosRepository produtos;
 
     @Transactional
-    public Produto criar(String tenant, Produto produto) {
-        produto.setTenant(tenant);
+    public Produto criar(Produto produto) {
         produto.setDataCriacao(LocalDateTime.now());
 
         return produtos.salvar(produto);
     }
 
     @Transactional
-    public Produto atualizar(Integer id, String tenant, Map<String, Object> produto) {
-        Produto produtoAtual = produtos.buscar(id, tenant);
+    public Produto atualizar(Integer id, Map<String, Object> produto) {
+        Produto produtoAtual = produtos.buscar(id);
 
         try {
             BeanUtils.populate(produtoAtual, produto);
